@@ -1,0 +1,22 @@
+﻿{
+  "version": "1.1.0-*",
+
+  "scripts": {
+    "postcompile": [
+      "dotnet pack --no-build --configuration %compile:Configuration% --output d:/dev/LocalNuget"
+    ]
+  },
+
+  "dependencies": {
+    "NETStandard.Library": "1.6.1",
+    "Newtonsoft.Json": "9.0.1",
+    "RipplerES.CommandHandler": "1.4.3-*"
+  },
+
+  "frameworks": {
+    "netcoreapp1.0": {
+      "imports": "dnxcore50"
+    }
+  }
+}
+

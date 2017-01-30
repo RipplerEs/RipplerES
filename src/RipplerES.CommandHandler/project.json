@@ -1,0 +1,20 @@
+{
+  "version": "1.4.3-*",
+
+  "scripts": {
+    "postcompile": [
+      "dotnet pack --no-build --configuration %compile:Configuration% --output d:/dev/LocalNuget"
+    ]
+  },
+
+  "dependencies": {
+    "Microsoft.Extensions.DependencyInjection": "1.1.0",
+    "NETStandard.Library": "1.6.1"
+  },
+
+  "frameworks": {
+    "netcoreapp1.0": {
+      "imports": "dnxcore50"
+    }
+  }
+}
