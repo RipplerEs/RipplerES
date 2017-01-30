@@ -27,14 +27,13 @@ namespace RipplerES.CommandHandler
             _aggregateEvents[aggregateEvent.GetType()].Invoke(obj, new [] { aggregateEvent });
         }
 
-        private T CreateFromInitialState()
+        public T CreateFromInitialState()
         {
             return (T) _factory.Invoke();
         }
 
-        public T CreateFrom(List<IAggregateEvent<T>> events)
+        public T Apply(T instance, List<IAggregateEvent<T>> events)
         {
-            var instance = CreateFromInitialState();
             if (events == null) return instance;
 
             foreach (var @event in events)

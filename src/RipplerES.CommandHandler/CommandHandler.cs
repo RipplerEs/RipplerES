@@ -27,19 +27,32 @@ namespace RipplerES.CommandHandler
             var eventData = _repository.GetEvents(id);
             var events = eventData.Select(c => _serializer.Deserialize<T>(c)).ToList();
 
-            var instance = _aggregateRoot.CreateFrom(events);
-            var commandResult = _aggregateRoot.Exec(instance, aggregateCommand);
-            var error = commandResult as AggregateErrorResult<T>;
-            if (error != null)
-                return new CommandErrorResult<T>(error);
+            IDisposable disposable = null;
+            try
+            {
+                var instance = _aggregateRoot.CreateFromInitialState();
+                disposable = instance as IDisposable;
 
-            var success = commandResult as AggregateSuccessResult<T>;
-            if (success == null)
-                return new CommandErrorResult<T>(new UnexpectedAggregateEvent<T>(commandResult));
+                _aggregateRoot.Apply(instance, events);
 
-            return _repository.Save(id, version, _serializer.Serialize(success.Event, metaData)) > 0 
-                        ? (ICommandResult<T>)new CommandSuccessResult<T>()
-                        : (ICommandResult<T>)new CommandErrorResult<T>(new AggregateConcurrencyError<T>());
+                var commandResult = _aggregateRoot.Exec(instance, aggregateCommand);
+                var error = commandResult as AggregateErrorResult<T>;
+
+                if (error != null)
+                    return new CommandErrorResult<T>(error);
+
+                var success = commandResult as AggregateSuccessResult<T>;
+                if (success == null)
+                    return new CommandErrorResult<T>(new UnexpectedAggregateEvent<T>(commandResult));
+
+                return _repository.Save(id, version, _serializer.Serialize(success.Event, metaData)) > 0
+                    ? (ICommandResult<T>) new CommandSuccessResult<T>()
+                    : (ICommandResult<T>) new CommandErrorResult<T>(new AggregateConcurrencyError<T>());
+            }
+            finally
+            {
+                disposable?.Dispose();
+            }
         }
 
 

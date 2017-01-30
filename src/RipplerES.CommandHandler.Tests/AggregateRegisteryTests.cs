@@ -64,7 +64,9 @@ namespace EventStoreRepositoryTests
             var aggregate = new AggregateRoot<AggregateRegisteryTests>(serviceCollection.BuildServiceProvider());
             var events = new List<IAggregateEvent<AggregateRegisteryTests>> { new AggregateEvent(new object()) };
 
-            var instance = aggregate.CreateFrom(events);
+            var instance = aggregate.CreateFromInitialState();
+            aggregate.Apply(instance, events);
+
             Assert.AreEqual(instance.State.GetHashCode(), ((AggregateEvent)events.First()).Obj.GetHashCode());
         }
 
@@ -78,7 +80,7 @@ namespace EventStoreRepositoryTests
             var aggregate = new AggregateRoot<AggregateRegisteryTests>(serviceCollection.BuildServiceProvider());
             var command = new SpecificCommand();
 
-            var @event = aggregate.Exec(aggregate.CreateFrom(null), command);
+            var @event = aggregate.Exec(aggregate.CreateFromInitialState(), command);
             var success = @event as AggregateSuccessResult<AggregateRegisteryTests>;
 
             Assert.IsNotNull(success);

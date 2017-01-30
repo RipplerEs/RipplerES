@@ -2587,7 +2587,7 @@
           "lib/netstandard1.3/System.Xml.XPath.XDocument.dll": {}
         }
       },
-      "RipplerES.CommandHandler/1.4.3": {
+      "RipplerES.CommandHandler/1.5.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v1.0",
         "dependencies": {
@@ -5307,7 +5307,7 @@
           "lib/netstandard1.3/System.Xml.XPath.XDocument.dll": {}
         }
       },
-      "RipplerES.CommandHandler/1.4.3": {
+      "RipplerES.CommandHandler/1.5.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v1.0",
         "dependencies": {
@@ -11393,7 +11393,7 @@
         "ref/xamarinwatchos10/_._"
       ]
     },
-    "RipplerES.CommandHandler/1.4.3": {
+    "RipplerES.CommandHandler/1.5.0": {
       "type": "project",
       "path": "../RipplerES.CommandHandler/project.json",
       "msbuildProject": "../RipplerES.CommandHandler/RipplerES.CommandHandler.xproj"
@@ -11403,7 +11403,7 @@
     "": [
       "MSTest.TestFramework >= 1.0.8-rc2",
       "NETStandard.Library >= 1.6.1",
-      "RipplerES.CommandHandler >= 1.4.3-*",
+      "RipplerES.CommandHandler >= 1.5.0-*",
       "dotnet-test-mstest >= 1.1.2-preview"
     ],
     ".NETCoreApp,Version=v1.0": []
