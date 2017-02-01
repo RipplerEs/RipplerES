@@ -1,12 +1,22 @@
 namespace RipplerES.CommandHandler
 {
-    public class AggregateSuccessResult<T> : IAggregateCommandResult<T>
+    public sealed class AggregateCommandSuccessResult<T> : IAggregateCommandResult<T>
     {
         public IAggregateEvent<T> Event { get; private set; }
 
-        public AggregateSuccessResult(IAggregateEvent<T> @event)
+        public AggregateCommandSuccessResult(IAggregateEvent<T> @event)
         {
             Event = @event;
+        }
+    }
+
+    public sealed class AggregateCommandErrorResult<T> : IAggregateCommandResult<T>
+    {
+        public IAggregateError<T> Error { get; private set; }
+
+        public AggregateCommandErrorResult(IAggregateError<T> error)
+        {
+            Error = error;
         }
     }
 }

@@ -2,8 +2,8 @@
 {
     public struct CommandErrorResult<T> : ICommandResult<T>
     {
-        public AggregateErrorResult<T> Error { get; }
-        public CommandErrorResult(AggregateErrorResult<T> error)
+        public IAggregateError<T> Error { get; }
+        public CommandErrorResult(IAggregateError<T> error)
         {
             Error = error;
         }

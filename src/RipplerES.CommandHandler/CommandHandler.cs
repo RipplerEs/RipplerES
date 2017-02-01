@@ -36,12 +36,12 @@ namespace RipplerES.CommandHandler
                 _aggregateRoot.Apply(instance, events);
 
                 var commandResult = _aggregateRoot.Exec(instance, aggregateCommand);
-                var error = commandResult as AggregateErrorResult<T>;
+                var error = commandResult as IAggregateError<T>;
 
                 if (error != null)
                     return new CommandErrorResult<T>(error);
 
-                var success = commandResult as AggregateSuccessResult<T>;
+                var success = commandResult as AggregateCommandSuccessResult<T>;
                 if (success == null)
                     return new CommandErrorResult<T>(new UnexpectedAggregateEvent<T>(commandResult));
 
@@ -58,7 +58,7 @@ namespace RipplerES.CommandHandler
 
     }
 
-    public class UnexpectedAggregateEvent<T> : AggregateErrorResult<T>
+    public class UnexpectedAggregateEvent<T> : IAggregateError<T>
     {
         public IAggregateCommandResult<T> CommandResult { get; }
 
@@ -68,7 +68,7 @@ namespace RipplerES.CommandHandler
         }
     }
 
-    public class AggregateConcurrencyError<T> : AggregateErrorResult<T>
+    public class AggregateConcurrencyError<T> : IAggregateError<T>
     {
 
     }

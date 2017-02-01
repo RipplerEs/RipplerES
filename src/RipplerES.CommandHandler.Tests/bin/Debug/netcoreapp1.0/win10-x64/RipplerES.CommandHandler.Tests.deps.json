@@ -12,7 +12,7 @@
           "dotnet-test-mstest": "1.1.2-preview",
           "MSTest.TestFramework": "1.0.8-rc2",
           "NETStandard.Library": "1.6.1",
-          "RipplerES.CommandHandler": "1.5.0"
+          "RipplerES.CommandHandler": "1.5.2"
         },
         "runtime": {
           "RipplerES.CommandHandler.Tests.dll": {}
@@ -2048,7 +2048,7 @@
           "lib/netstandard1.3/System.Xml.XPath.XDocument.dll": {}
         }
       },
-      "RipplerES.CommandHandler/1.5.0": {
+      "RipplerES.CommandHandler/1.5.2": {
         "dependencies": {
           "Microsoft.Extensions.DependencyInjection": "1.1.0",
           "NETStandard.Library": "1.6.1"
@@ -2945,7 +2945,7 @@
       "serviceable": true,
       "sha512": "sha512-FLhdYJx4331oGovQypQ8JIw2kEmNzCsjVOVYY/16kZTUoquZG85oVn7yUhBE2OZt1yGPSXAL0HTEfzjlbNpM7Q=="
     },
-    "RipplerES.CommandHandler/1.5.0": {
+    "RipplerES.CommandHandler/1.5.2": {
       "type": "project",
       "serviceable": false,
       "sha512": ""

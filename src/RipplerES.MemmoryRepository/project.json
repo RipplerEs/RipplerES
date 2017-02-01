@@ -3,7 +3,7 @@
 
   "scripts": {
     "postcompile": [
-      "dotnet pack --no-build --configuration %compile:Configuration% --output d:/dev/LocalNuget"
+      "dotnet pack --no-build --configuration %compile:Configuration% --output c:/dev/LocalNuget"
     ]
   },
 

@@ -31,7 +31,7 @@ namespace EventStoreRepositoryTests
 
         public IAggregateCommandResult<AggregateRegisteryTests> Specify(SpecificCommand command)
         {
-            return new AggregateSuccessResult<AggregateRegisteryTests>(new ASpecificEvent());
+            return new AggregateCommandSuccessResult<AggregateRegisteryTests>(new ASpecificEvent());
         }
 
 
@@ -81,7 +81,7 @@ namespace EventStoreRepositoryTests
             var command = new SpecificCommand();
 
             var @event = aggregate.Exec(aggregate.CreateFromInitialState(), command);
-            var success = @event as AggregateSuccessResult<AggregateRegisteryTests>;
+            var success = @event as AggregateCommandSuccessResult<AggregateRegisteryTests>;
 
             Assert.IsNotNull(success);
             Assert.IsInstanceOfType(success.Event, typeof(ASpecificEvent));
