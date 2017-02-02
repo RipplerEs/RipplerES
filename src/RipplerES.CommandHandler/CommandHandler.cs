@@ -36,18 +36,19 @@ namespace RipplerES.CommandHandler
                 _aggregateRoot.Apply(instance, events);
 
                 var commandResult = _aggregateRoot.Exec(instance, aggregateCommand);
-                var error = commandResult as IAggregateError<T>;
+                var error = commandResult as AggregateCommandErrorResult<T>;
 
                 if (error != null)
-                    return new CommandErrorResult<T>(error);
+                    return new CommandErrorResult<T>(error.Error);
 
                 var success = commandResult as AggregateCommandSuccessResult<T>;
                 if (success == null)
                     return new CommandErrorResult<T>(new UnexpectedAggregateEvent<T>(commandResult));
 
-                return _repository.Save(id, version, _serializer.Serialize(success.Event, metaData)) > 0
-                    ? (ICommandResult<T>) new CommandSuccessResult<T>()
-                    : (ICommandResult<T>) new CommandErrorResult<T>(new AggregateConcurrencyError<T>());
+                var newVersionNumber = _repository.Save(id, version, _serializer.Serialize(success.Event, metaData));
+                return newVersionNumber > 0
+                            ? (ICommandResult<T>) new CommandSuccessResult<T>(newVersionNumber)
+                            : (ICommandResult<T>) new CommandErrorResult<T>(new AggregateConcurrencyError<T>());
             }
             finally
             {

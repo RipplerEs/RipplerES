@@ -1,5 +1,5 @@
 ﻿CREATE TABLE dbo.Events (
-    Id					INT					IDENTITY (1, 1) NOT NULL,
+    Id					INT					IDENTITY (1, 1) NOT NULL PRIMARY KEY,
     version				INT					NOT NULL,
     AggregateId			UNIQUEIDENTIFIER	NOT NULL,
     [type]				VARCHAR (MAX)		NOT NULL,

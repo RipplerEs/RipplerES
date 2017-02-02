@@ -1,0 +1,5 @@
+﻿{
+  "Database": {
+    "connectionString": "Data Source=(localdb)\\ProjectsV13;Initial Catalog=RipplesES-EventStore;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=True;ApplicationIntent=ReadWrite;MultiSubnetFailover=False"
+  }
+}

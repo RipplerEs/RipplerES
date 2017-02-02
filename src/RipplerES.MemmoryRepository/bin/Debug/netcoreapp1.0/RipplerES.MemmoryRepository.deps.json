@@ -10,7 +10,7 @@
       "RipplerES.MemmoryRepository/1.1.0": {
         "dependencies": {
           "NETStandard.Library": "1.6.1",
-          "RipplerES.CommandHandler": "1.5.2"
+          "RipplerES.CommandHandler": "1.5.4"
         },
         "runtime": {
           "RipplerES.MemmoryRepository.dll": {}
@@ -779,7 +779,7 @@
           "lib/netstandard1.3/System.Xml.XDocument.dll": {}
         }
       },
-      "RipplerES.CommandHandler/1.5.2": {
+      "RipplerES.CommandHandler/1.5.4": {
         "dependencies": {
           "Microsoft.Extensions.DependencyInjection": "1.1.0",
           "NETStandard.Library": "1.6.1"
@@ -1176,7 +1176,7 @@
       "serviceable": true,
       "sha512": "sha512-5zJ0XDxAIg8iy+t4aMnQAu0MqVbqyvfoUVl1yDV61xdo3Vth45oA2FoY4pPkxYAH5f8ixpmTqXeEIya95x0aCQ=="
     },
-    "RipplerES.CommandHandler/1.5.2": {
+    "RipplerES.CommandHandler/1.5.4": {
       "type": "project",
       "serviceable": false,
       "sha512": ""

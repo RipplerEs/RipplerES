@@ -7,7 +7,7 @@
   "targets": {
     ".NETStandard,Version=v2.0": {},
     ".NETStandard,Version=v2.0/": {
-      "RipplerES.CommandHandler/1.5.2": {
+      "RipplerES.CommandHandler/1.5.4": {
         "dependencies": {
           "Microsoft.Extensions.DependencyInjection": "1.1.0",
           "NETStandard.Library": "1.6.1"
@@ -782,7 +782,7 @@
     }
   },
   "libraries": {
-    "RipplerES.CommandHandler/1.5.2": {
+    "RipplerES.CommandHandler/1.5.4": {
       "type": "project",
       "serviceable": false,
       "sha512": ""

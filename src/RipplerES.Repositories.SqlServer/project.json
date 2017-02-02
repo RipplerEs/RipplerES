@@ -1,0 +1,27 @@
+﻿{
+  "version": "1.0.2-*",
+
+  "scripts": {
+    "postcompile": [
+      "dotnet pack --no-build --configuration %compile:Configuration% --output c:/dev/LocalNuget"
+    ]
+  },
+
+  "dependencies": {
+    "Dapper": "1.50.2",
+    "Microsoft.Extensions.Configuration": "1.1.0",
+    "Microsoft.Extensions.Configuration.FileExtensions": "1.1.0",
+    "Microsoft.Extensions.Configuration.Json": "1.1.0",
+    "NETStandard.Library": "1.6.1",
+    "RipplerES.CommandHandler": "1.5.4-*"
+  },
+
+  "frameworks": {
+    "netcoreapp1.0": {
+      "imports": "dnxcore50"
+    },
+    "netstandard2.0": {},
+    "net4.6": {},
+    "net4.6.1": {}
+  }
+}

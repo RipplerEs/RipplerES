@@ -1,9 +1,4 @@
-#:C:\Repos\RipplerES\src\RipplerES.CommandHandler\RipplerES.CommandHandler.xproj
-#:C:\Repos\RipplerES\src\RipplerES.EFCoreRepository.SqlServer\RipplerES.EFCoreRepository.SqlServer.xproj
-C:\Repos\RipplerES\src\RipplerES.EFCoreRepository.SqlServer\RipplerES.EFCoreRepository.SqlServer.xproj|C:\Repos\RipplerES\src\RipplerES.CommandHandler\RipplerES.CommandHandler.xproj
-#:C:\Repos\RipplerES\src\RipplerES.MemmoryRepository\RipplerES.MemoryEventRepository.xproj
-C:\Repos\RipplerES\src\RipplerES.MemmoryRepository\RipplerES.MemoryEventRepository.xproj|C:\Repos\RipplerES\src\RipplerES.CommandHandler\RipplerES.CommandHandler.xproj
-#:C:\Repos\RipplerES\src\RipplerES.NewtonSoft.Json.Serializer\RipplerES.NewtonSoft.Json.Serializer.xproj
-C:\Repos\RipplerES\src\RipplerES.NewtonSoft.Json.Serializer\RipplerES.NewtonSoft.Json.Serializer.xproj|C:\Repos\RipplerES\src\RipplerES.CommandHandler\RipplerES.CommandHandler.xproj
-#:C:\Repos\RipplerES\src\RipplerES.CommandHandler.Tests\RipplerES.CommandHandler.Tests.xproj
-C:\Repos\RipplerES\src\RipplerES.CommandHandler.Tests\RipplerES.CommandHandler.Tests.xproj|C:\Repos\RipplerES\src\RipplerES.CommandHandler\RipplerES.CommandHandler.xproj
+#:C:\Users\douce\Source\Repos\RipplerES\src\RipplerES.Repositories.SqlServer\RipplerES.Repositories.SqlServer.xproj
+C:\Users\douce\Source\Repos\RipplerES\src\RipplerES.Repositories.SqlServer\RipplerES.Repositories.SqlServer.xproj|C:\Users\douce\Source\Repos\RipplerES\src\RipplerES.CommandHandler\RipplerES.CommandHandler.xproj
+#:C:\Users\douce\Source\Repos\RipplerES\src\RipplerES.CommandHandler.Tests\RipplerES.CommandHandler.Tests.xproj
+C:\Users\douce\Source\Repos\RipplerES\src\RipplerES.CommandHandler.Tests\RipplerES.CommandHandler.Tests.xproj|C:\Users\douce\Source\Repos\RipplerES\src\RipplerES.CommandHandler\RipplerES.CommandHandler.xproj
