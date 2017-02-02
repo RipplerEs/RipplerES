@@ -3114,7 +3114,7 @@
           "lib/netstandard1.3/System.Xml.XPath.XDocument.dll": {}
         }
       },
-      "RipplerES.CommandHandler/1.5.2": {
+      "RipplerES.CommandHandler/1.5.4": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v1.0",
         "dependencies": {
@@ -8789,7 +8789,7 @@
         "ref/xamarinwatchos10/_._"
       ]
     },
-    "RipplerES.CommandHandler/1.5.2": {
+    "RipplerES.CommandHandler/1.5.4": {
       "type": "project",
       "path": "../RipplerES.CommandHandler/project.json",
       "msbuildProject": "../RipplerES.CommandHandler/RipplerES.CommandHandler.xproj"
@@ -8801,7 +8801,7 @@
       "Microsoft.EntityFrameworkCore.SqlServer >= 1.1.0",
       "Microsoft.EntityFrameworkCore.Tools >= 1.0.0-preview2-final",
       "NETStandard.Library >= 1.6.1",
-      "RipplerES.CommandHandler >= 1.5.2-*"
+      "RipplerES.CommandHandler >= 1.5.4-*"
     ],
     ".NETCoreApp,Version=v1.0": []
   },
