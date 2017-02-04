@@ -22,7 +22,7 @@ namespace RipplerES.CommandHandler
             _aggregateRoot = new AggregateRoot<T>(serviceProvider);
         }
 
-        public ICommandResult<T> Handle(Guid id, int version, IAggregateCommand<T> aggregateCommand, Dictionary<string,string> metaData = null)
+        public ICommandResult<T> Handle(Guid id, int expectedVersion, IAggregateCommand<T> aggregateCommand, Dictionary<string,string> metaData = null)
         {
             var eventData = _repository.GetEvents(id);
             var events = eventData.Select(c => _serializer.Deserialize<T>(c)).ToList();
@@ -45,7 +45,7 @@ namespace RipplerES.CommandHandler
                 if (success == null)
                     return new CommandErrorResult<T>(new UnexpectedAggregateEvent<T>(commandResult));
 
-                var newVersionNumber = _repository.Save(id, version, _serializer.Serialize(success.Event, metaData));
+                var newVersionNumber = _repository.Save(id, expectedVersion, _serializer.Serialize(success.Event, metaData));
                 return newVersionNumber > 0
                             ? (ICommandResult<T>) new CommandSuccessResult<T>(newVersionNumber)
                             : (ICommandResult<T>) new CommandErrorResult<T>(new AggregateConcurrencyError<T>());
