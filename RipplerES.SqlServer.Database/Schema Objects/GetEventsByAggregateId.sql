@@ -6,6 +6,7 @@ BEGIN
 		   [version],
 
 		   AggregateId,
+		   AggregateType,
 		   [type],
 		   [data],
 		   metadata

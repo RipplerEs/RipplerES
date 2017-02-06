@@ -59,6 +59,7 @@ namespace RipplerES.Repositories.SqlServer
                 return connection.Query<int>(SaveEventProcedure,
                                              new {  AggregateId = id,
                                                     expectedVersion,
+                                                    aggregateEvent.AggregateType,
                                                     aggregateEvent.Type,
                                                     aggregateEvent.Data,
                                                     aggregateEvent.MetaData

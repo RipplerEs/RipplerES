@@ -1,9 +1,10 @@
 ﻿CREATE PROCEDURE SaveAggregateEvent 
 						@AggregateId		UNIQUEIDENTIFIER,
 						@expectedVersion	INT,
+						@AggregateType		VARCHAR(MAX),
 						@type				VARCHAR(255),
-						@data				VARCHAR(max),
-						@metadata			VARCHAR(max)
+						@data				VARCHAR(MAX),
+						@metadata			VARCHAR(MAX)
 AS 
 BEGIN TRY 
 	BEGIN TRAN
@@ -28,12 +29,14 @@ BEGIN TRY
 		SET @newVersion = @currentVersion + 1
 		INSERT INTO Events (  [version],
 							  AggregateId,
+							  AggregateType,
 							  [type],
 							  [data],
 							  metadata
 					)
 			 VALUES (		  @newVersion,
 							  @AggregateId,
+							  @AggregateType,
 							  @type,
 							  @data,
 							  @metadata

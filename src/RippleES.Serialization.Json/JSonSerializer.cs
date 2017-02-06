@@ -16,6 +16,7 @@ namespace RippleES.Serialization.Json
         {
             return new AggregateEventData
             {
+                AggregateType = typeof(T).AssemblyQualifiedName,
                 Data = JsonConvert.SerializeObject(@event),
                 MetaData = JsonConvert.SerializeObject(metaData),
                 Type = @event.GetType().AssemblyQualifiedName
