@@ -2,15 +2,20 @@
 						@AggregateId		UNIQUEIDENTIFIER
 AS 
 BEGIN
-	SELECT Id,
+	SELECT evt.Id,
 		   [version],
 
 		   AggregateId,
 		   AggregateType,
-		   [type],
+		   EventType,
 		   [data],
 		   metadata
 
-	  FROM Events
+	  FROM Events								AS Evt
+	 INNER JOIN AggregateTypes					AS Atyp
+			 ON Evt.AggregateTypeId		= Atyp.Id
+	 INNER JOIN EventTypes						AS Etyp
+			 ON Evt.EventTypeId			= Etyp.Id
+
 	 WHERE AggregateId		= @AggregateId
 END

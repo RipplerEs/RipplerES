@@ -1938,7 +1938,7 @@
           "lib/netstandard1.3/System.Xml.XmlDocument.dll": {}
         }
       },
-      "RipplerES.CommandHandler/1.5.4": {
+      "RipplerES.CommandHandler/1.6.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v1.0",
         "dependencies": {
@@ -2762,7 +2762,7 @@
           "lib/net45/_._": {}
         }
       },
-      "RipplerES.CommandHandler/1.5.4": {
+      "RipplerES.CommandHandler/1.6.0": {
         "type": "project",
         "framework": ".NETFramework,Version=v4.6",
         "dependencies": {
@@ -3586,7 +3586,7 @@
           "lib/net45/_._": {}
         }
       },
-      "RipplerES.CommandHandler/1.5.4": {
+      "RipplerES.CommandHandler/1.6.0": {
         "type": "project",
         "framework": ".NETFramework,Version=v4.6.1",
         "dependencies": {
@@ -5537,7 +5537,7 @@
           "lib/netstandard1.3/System.Xml.XmlDocument.dll": {}
         }
       },
-      "RipplerES.CommandHandler/1.5.4": {
+      "RipplerES.CommandHandler/1.6.0": {
         "type": "project",
         "framework": ".NETStandard,Version=v2.0",
         "dependencies": {
@@ -5555,7 +5555,7 @@
   },
   "libraries": {
     "Dapper/1.50.2": {
-      "sha512": "PhxIV8TI/5aYdLT4epuIZB+Evf0sv9gcQDpFGa04fSKDfNQIChRq0sKUgQbfpFWbuDW/UDDuiL3Grkhp/cvYrA==",
+      "sha512": "4sUecJaw/cXXq0nyM1qld+GcE+sKzEOEECotlbJN7hZRAY8c09sNWDY7MynUw0/W3hF+k9VPWu2RbEXGnJ8svA==",
       "type": "package",
       "path": "Dapper/1.50.2",
       "files": [
@@ -9749,7 +9749,7 @@
         "ref/xamarinwatchos10/_._"
       ]
     },
-    "RipplerES.CommandHandler/1.5.4": {
+    "RipplerES.CommandHandler/1.6.0": {
       "type": "project",
       "path": "../RipplerES.CommandHandler/project.json",
       "msbuildProject": "../RipplerES.CommandHandler/RipplerES.CommandHandler.xproj"
@@ -9762,7 +9762,7 @@
       "Microsoft.Extensions.Configuration.FileExtensions >= 1.1.0",
       "Microsoft.Extensions.Configuration.Json >= 1.1.0",
       "NETStandard.Library >= 1.6.1",
-      "RipplerES.CommandHandler >= 1.5.4-*"
+      "RipplerES.CommandHandler >= 1.6.0-*"
     ],
     ".NETCoreApp,Version=v1.0": [],
     ".NETFramework,Version=v4.6": [],

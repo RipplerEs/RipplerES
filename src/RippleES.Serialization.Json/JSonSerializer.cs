@@ -9,7 +9,7 @@ namespace RippleES.Serialization.Json
     {
         public IAggregateEvent<T> Deserialize<T>(AggregateEventData aggregateEventData)
         {
-            return (IAggregateEvent<T>)JsonConvert.DeserializeObject(aggregateEventData.Data, Type.GetType(aggregateEventData.Type));
+            return (IAggregateEvent<T>)JsonConvert.DeserializeObject(aggregateEventData.Data, Type.GetType(aggregateEventData.EventType));
         }
 
         public AggregateEventData Serialize<T>(IAggregateEvent<T> @event, Dictionary<string, string> metaData)
@@ -19,7 +19,7 @@ namespace RippleES.Serialization.Json
                 AggregateType = typeof(T).AssemblyQualifiedName,
                 Data = JsonConvert.SerializeObject(@event),
                 MetaData = JsonConvert.SerializeObject(metaData),
-                Type = @event.GetType().AssemblyQualifiedName
+                EventType = @event.GetType().AssemblyQualifiedName
             };
         }
     }

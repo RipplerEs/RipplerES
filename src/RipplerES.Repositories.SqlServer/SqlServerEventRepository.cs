@@ -60,7 +60,7 @@ namespace RipplerES.Repositories.SqlServer
                                              new {  AggregateId = id,
                                                     expectedVersion,
                                                     aggregateEvent.AggregateType,
-                                                    aggregateEvent.Type,
+                                                    aggregateEvent.EventType,
                                                     aggregateEvent.Data,
                                                     aggregateEvent.MetaData
                                              },

@@ -2,7 +2,7 @@
 						@AggregateId		UNIQUEIDENTIFIER,
 						@expectedVersion	INT,
 						@AggregateType		VARCHAR(MAX),
-						@type				VARCHAR(255),
+						@EventType			VARCHAR(255),
 						@data				VARCHAR(MAX),
 						@metadata			VARCHAR(MAX)
 AS 
@@ -10,6 +10,13 @@ BEGIN TRY
 	BEGIN TRAN
 		DECLARE @currentVersion		INT
 		DECLARE @newVersion			INT
+
+		DECLARE @AggregateTypeId	INT
+		EXEC  EnsureAggregateType @AggregateType, @AggregateTypeId OUTPUT
+
+		DECLARE @EventTypeId	INT
+		EXEC  EnsureEventType @EventType, @EventTypeId OUTPUT
+
 
 		SELECT @currentVersion = max([version])
 		  FROM Events
@@ -29,15 +36,15 @@ BEGIN TRY
 		SET @newVersion = @currentVersion + 1
 		INSERT INTO Events (  [version],
 							  AggregateId,
-							  AggregateType,
-							  [type],
+							  AggregateTypeId,
+							  EventTypeId,
 							  [data],
 							  metadata
 					)
 			 VALUES (		  @newVersion,
 							  @AggregateId,
-							  @AggregateType,
-							  @type,
+							  @AggregateTypeId,
+							  @EventTypeId,
 							  @data,
 							  @metadata
 					)

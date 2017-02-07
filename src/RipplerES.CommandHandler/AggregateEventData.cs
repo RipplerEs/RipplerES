@@ -4,7 +4,7 @@ namespace RipplerES.CommandHandler
     {
         public string AggregateType { get; set; }
         public string Data { get; set; }
-        public string Type { get; set; }
+        public string EventType { get; set; }
         public string MetaData { get; set; }
 
     }

@@ -1234,7 +1234,7 @@
           "lib/netstandard1.3/System.Xml.XDocument.dll": {}
         }
       },
-      "RipplerES.CommandHandler/1.5.4": {
+      "RipplerES.CommandHandler/1.6.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v1.0",
         "dependencies": {
@@ -4453,7 +4453,7 @@
         "ref/xamarinwatchos10/_._"
       ]
     },
-    "RipplerES.CommandHandler/1.5.4": {
+    "RipplerES.CommandHandler/1.6.0": {
       "type": "project",
       "path": "../RipplerES.CommandHandler/project.json",
       "msbuildProject": "../RipplerES.CommandHandler/RipplerES.CommandHandler.xproj"
@@ -4462,7 +4462,7 @@
   "projectFileDependencyGroups": {
     "": [
       "NETStandard.Library >= 1.6.1",
-      "RipplerES.CommandHandler >= 1.5.4-*"
+      "RipplerES.CommandHandler >= 1.6.0-*"
     ],
     ".NETCoreApp,Version=v1.0": []
   },

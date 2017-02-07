@@ -24,6 +24,7 @@
     <IncludeCompositeObjects>True</IncludeCompositeObjects>
     <TargetDatabaseSet>True</TargetDatabaseSet>
     <GenerateCreateScript>True</GenerateCreateScript>
+    <DacVersion>1.1.0.0</DacVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <OutputPath>bin\Release\</OutputPath>
@@ -67,5 +68,12 @@
     <Build Include="Schema Objects\Events.sql" />
     <Build Include="Schema Objects\GetEventsByAggregateId.sql" />
     <Build Include="Schema Objects\SaveAggregateEvent.sql" />
+    <Build Include="Schema Objects\AggregateTypes.sql" />
+    <Build Include="Schema Objects\EventTypes.sql" />
+    <Build Include="Schema Objects\EnsureAggregateTypeType.sql" />
+    <Build Include="Schema Objects\EnsureEventType.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <RefactorLog Include="RipplerES.SqlServer.Database.refactorlog" />
   </ItemGroup>
 </Project>
