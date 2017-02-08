@@ -31,6 +31,8 @@ namespace RipplerES.CommandHandler
             try
             {
                 var instance = _aggregateRoot.CreateFromInitialState();
+                var snapshotable = instance as ISnapshotable;
+
                 disposable = instance as IDisposable;
 
                 _aggregateRoot.Apply(instance, events);
@@ -45,7 +47,18 @@ namespace RipplerES.CommandHandler
                 if (success == null)
                     return new CommandErrorResult<T>(new UnexpectedAggregateEvent<T>(commandResult));
 
-                var newVersionNumber = _repository.Save(id, expectedVersion, _serializer.Serialize(success.Event, metaData));
+                //TODO TO Config
+                var snapshotInterval = 1000;
+                string snapshot = null;
+                if (snapshotable != null && (expectedVersion + 1) % snapshotInterval == 0)
+                {
+                    snapshot = snapshotable.TakeSnapshot();
+                }
+
+                var newVersionNumber = _repository.Save(id, 
+                                                        expectedVersion, 
+                                                        _serializer.Serialize(success.Event, metaData),
+                                                        snapshot);
                 return newVersionNumber > 0
                             ? (ICommandResult<T>) new CommandSuccessResult<T>(newVersionNumber)
                             : (ICommandResult<T>) new CommandErrorResult<T>(new AggregateConcurrencyError<T>());

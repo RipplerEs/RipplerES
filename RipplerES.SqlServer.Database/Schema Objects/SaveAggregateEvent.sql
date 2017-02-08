@@ -4,7 +4,8 @@
 						@AggregateType		VARCHAR(MAX),
 						@EventType			VARCHAR(255),
 						@data				VARCHAR(MAX),
-						@metadata			VARCHAR(MAX)
+						@metadata			VARCHAR(MAX),
+						@snapshot			VARCHAR(MAX)
 AS 
 BEGIN TRY 
 	BEGIN TRAN
@@ -16,7 +17,6 @@ BEGIN TRY
 
 		DECLARE @EventTypeId	INT
 		EXEC  EnsureEventType @EventType, @EventTypeId OUTPUT
-
 
 		SELECT @currentVersion = max([version])
 		  FROM Events
@@ -48,6 +48,11 @@ BEGIN TRY
 							  @data,
 							  @metadata
 					)
+
+		IF @Snapshot IS NOT NULL
+		BEGIN
+			EXEC CreateOrUpdateSnapshot @AggregateId, @Snapshot 
+		END
 
 		SELECT @newVersion
 	COMMIT

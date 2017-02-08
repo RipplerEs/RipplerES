@@ -24,7 +24,7 @@ namespace RipplerES.MemoryRepository
             return _events.ContainsKey(id) ? _events[id] : new List<AggregateEventData>();
         }
 
-        public int Save(Guid id, int expectedVersion, AggregateEventData aggregateEvent)
+        public int Save(Guid id, int expectedVersion, AggregateEventData aggregateEvent, string snapshot)
         {
             EnsureLock(id);
             if (EnsureVersion(id, expectedVersion) == 0)

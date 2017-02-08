@@ -52,7 +52,7 @@ namespace RipplerES.Repositories.SqlServer
             }
         }
 
-        public int Save(Guid id, int expectedVersion, AggregateEventData aggregateEvent)
+        public int Save(Guid id, int expectedVersion, AggregateEventData aggregateEvent, string snapshot)
         {
             using (var connection = new SqlConnection(_connectionString))
             {
