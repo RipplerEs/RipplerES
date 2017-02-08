@@ -7,42 +7,34 @@ namespace RipplerES.CommandHandler
 {
     public static class AggregateTypeExtensions
     {
-        public static ConstructorInfo GetConstructor(this Type type)
-        {
-            return type.GetTypeInfo().GetConstructors().Single(c => !c.GetParameters().Any());
-        }
-
         public static IDictionary<Type, MethodInfo> GetAggregateEvents(this Type type)
         {
             var aggregateEvents = type.GetRuntimeMethods().Where(m => m.IsValidAggregateEventMethod());
             return aggregateEvents.ToDictionary(e => e.GetParameterType(), e => e);
-
         }
 
         public static IDictionary<Type, MethodInfo> GetAggregateCommands(this Type type)
         {
-            var aggregateEvents = type.GetRuntimeMethods().Where(m => m.IsValidAggregateCommandMethod());
-            return aggregateEvents.ToDictionary(e => e.GetParameterType(), e => e);
+            var aggregateCommands = type.GetRuntimeMethods().Where(m => m.IsValidAggregateCommandMethod());
+            return aggregateCommands.ToDictionary(e => e.GetParameterType(), e => e);
 
         }
 
-        public static bool IsValidAggregateEventMethod(this MethodInfo methodInfo)
+        private static bool IsValidAggregateEventMethod(this MethodInfo methodInfo)
         {
             return methodInfo.HasVoidReturnType()
                    && methodInfo.HasOneParameter()
                    && methodInfo.ParameterIsAggregateEvent();
         }
 
-        public static bool IsValidAggregateCommandMethod(this MethodInfo methodInfo)
+        private static bool IsValidAggregateCommandMethod(this MethodInfo methodInfo)
         {
-            var method = methodInfo.HasOneParameter();
-
             return methodInfo.HasAggregateCommandResult()
                    && methodInfo.HasOneParameter()
                    && methodInfo.ParameterIsAggregateCommand();
         }
 
-        public static Type GetParameterType(this MethodInfo methodInfo)
+        private static Type GetParameterType(this MethodInfo methodInfo)
         {
             return methodInfo.GetParameters()
                              .Single()
@@ -99,8 +91,21 @@ namespace RipplerES.CommandHandler
 
         private static bool HasAggregateCommandResult(this MethodInfo methodInfo)
         {
-            if (!methodInfo.ReturnType.GetTypeInfo().IsGenericType) return false;
-            return methodInfo.ReturnType.GetGenericTypeDefinition() == typeof(IAggregateCommandResult<>);
+            var returnType = methodInfo.ReturnType;
+            if (!returnType.IsInterface())
+            {
+                
+            }
+            var interfaces = returnType.GetTypeInfo().GetInterfaces();
+
+            return interfaces.Any(i => i.IsIAggregateCommandResultInterfaceFor(methodInfo.DeclaringType));
+        }
+
+        private static bool IsIAggregateCommandResultInterfaceFor(this Type type, Type genericParameterType)
+        {
+            return type.IsInterface() &&
+                   type.IsIAggregateCommandResult() &&
+                   type.HasGenericParameterOf(genericParameterType);
         }
 
         private static bool IsIAggregateEvent(this Type type)
@@ -111,7 +116,14 @@ namespace RipplerES.CommandHandler
 
         private static bool IsIAggregateCommand(this Type type)
         {
+            if (!type.GetTypeInfo().IsGenericType) return false;
             return type.GetGenericTypeDefinition() == typeof(IAggregateCommand<>);
+        }
+
+        private static bool IsIAggregateCommandResult(this Type type)
+        {
+            if (!type.GetTypeInfo().IsGenericType) return false;
+            return type.GetGenericTypeDefinition() == typeof(IAggregateCommandResult<>);
         }
 
         private static bool HasGenericParameterOf(this Type type, Type genericParameterType)
