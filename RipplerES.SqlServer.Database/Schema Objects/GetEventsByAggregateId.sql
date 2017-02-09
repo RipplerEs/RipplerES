@@ -36,6 +36,7 @@ BEGIN
 
 	IF @IgnoreSnapshot = 1
 	BEGIN
-		SELECT @Snapshot
+		SELECT @Snapshot, 
+			   @Version as SnapshotVersion
 	END
 END

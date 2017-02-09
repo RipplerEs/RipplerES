@@ -42,13 +42,21 @@ namespace RipplerES.Repositories.SqlServer
                             .AddJsonFile("config.json").Build();
         }
 
-        public IEnumerable<AggregateEventData> GetEvents(Guid id)
+        public AggregateData GetEvents(Guid id)
         {
             using(var connection = new SqlConnection(_connectionString))
             {
-                return connection.Query<AggregateEventData>(GetEventsByAggregateIdProcedure, 
-                                                            new { AggregateId = id }, 
-                                                            commandType: CommandType.StoredProcedure);
+                var result = connection.QueryMultiple(GetEventsByAggregateIdProcedure, 
+                                         new { AggregateId = id }, 
+                                         commandType: CommandType.StoredProcedure);
+
+
+                return new AggregateData
+                {
+                    Events = result.Read<AggregateEventData>(),
+                    SnapshotInfo = result.Read<SnapshotInfo>().SingleOrDefault()
+                };
+
             }
         }
 

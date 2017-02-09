@@ -54,14 +54,18 @@ namespace RipplerES.CommandHandler
         
         public ICommandResult<T> Handle(Guid id, int expectedVersion, IAggregateCommand<T> aggregateCommand, Dictionary<string,string> metaData = null)
         {
-            var eventData = _repository.GetEvents(id);
-            var events = eventData.Select(c => _serializer.Deserialize<T>(c)).ToList();
+            var aggregateData = _repository.GetEvents(id);
+            var events = aggregateData.Events.Select(c => _serializer.Deserialize<T>(c)).ToList();
 
             IDisposable disposable = null;
             try
             {
                 var instance = _aggregateRoot.CreateFromInitialState();
                 var snapshotable = instance as ISnapshotable;
+                if (snapshotable != null && aggregateData.SnapshotInfo != null)
+                {
+                    snapshotable.RestoreFromSnapshot(aggregateData.SnapshotInfo.Snapshot);
+                }
 
                 disposable = instance as IDisposable;
 
