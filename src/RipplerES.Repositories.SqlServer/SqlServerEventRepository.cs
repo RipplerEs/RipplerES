@@ -62,7 +62,8 @@ namespace RipplerES.Repositories.SqlServer
                                                     aggregateEvent.AggregateType,
                                                     aggregateEvent.EventType,
                                                     aggregateEvent.Data,
-                                                    aggregateEvent.MetaData
+                                                    aggregateEvent.MetaData,
+                                                    snapshot
                                              },
                                              commandType: CommandType.StoredProcedure)
                                              .FirstOrDefault();

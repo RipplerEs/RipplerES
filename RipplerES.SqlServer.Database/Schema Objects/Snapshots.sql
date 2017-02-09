@@ -1,7 +1,5 @@
 ﻿CREATE TABLE dbo.Snapshots(
-    Id						INT					IDENTITY (1, 1) NOT NULL PRIMARY KEY,
-	
-	AggregateId				UNIQUEIDENTIFIER	NOT NULL,
+	AggregateId				UNIQUEIDENTIFIER	NOT NULL PRIMARY KEY,
     [Version]				INT		NOT NULL,
     [Snapshot]				VARCHAR (MAX)		NOT NULL,
 

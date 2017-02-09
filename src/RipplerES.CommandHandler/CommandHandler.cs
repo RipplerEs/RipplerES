@@ -1,7 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
+using System.IO;
 using System.Linq;
-using System.Security.Cryptography.X509Certificates;
+
+
+using Microsoft.Extensions.Configuration;
 
 namespace RipplerES.CommandHandler
 {
@@ -11,17 +15,43 @@ namespace RipplerES.CommandHandler
 
         private readonly IEventRepository _repository;
         private readonly ISerializer _serializer;
+        private int _snapshotInterval = 1000;
 
         private readonly AggregateRoot<T> _aggregateRoot;
 
         public CommandHandler(IEventRepository repository, ISerializer serializer, IServiceProvider serviceProvider)
         {
+            Initialize();
             _repository = repository;
             _serializer = serializer;
 
             _aggregateRoot = new AggregateRoot<T>(serviceProvider);
         }
+        
+        private void Initialize()
+        {
+            var configuration = ReadConfigurationFile();
+            _snapshotInterval = ExtractSnapshotInterval(configuration);
+        }
 
+        private int ExtractSnapshotInterval(IConfiguration configuration)
+        {
+            var literal = configuration.GetSection("Aggregate")["SnapshotInterval"];
+            if (string.IsNullOrWhiteSpace(literal)) return _snapshotInterval;
+
+            int value;
+            return int.TryParse(literal, out value) 
+                        ? value 
+                        : _snapshotInterval;
+        }
+
+        private static IConfigurationRoot ReadConfigurationFile()
+        {
+            return new ConfigurationBuilder()
+                            .SetBasePath(Directory.GetCurrentDirectory())
+                            .AddJsonFile("config.json").Build();
+        }
+        
         public ICommandResult<T> Handle(Guid id, int expectedVersion, IAggregateCommand<T> aggregateCommand, Dictionary<string,string> metaData = null)
         {
             var eventData = _repository.GetEvents(id);
@@ -46,11 +76,9 @@ namespace RipplerES.CommandHandler
                 var success = commandResult as AggregateCommandSuccessResult<T>;
                 if (success == null)
                     return new CommandErrorResult<T>(new UnexpectedAggregateEvent<T>(commandResult));
-
-                //TODO TO Config
-                var snapshotInterval = 1000;
+                
                 string snapshot = null;
-                if (snapshotable != null && (expectedVersion + 1) % snapshotInterval == 0)
+                if (snapshotable != null && (expectedVersion + 1) % _snapshotInterval == 0)
                 {
                     snapshot = snapshotable.TakeSnapshot();
                 }

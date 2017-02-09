@@ -6,13 +6,11 @@ AS
 BEGIN TRY 
 	BEGIN TRAN
 	
-	DECLARE @SnashotId		INT
-
-	SELECT @SnashotId = Id
-	  FROM Snapshots
-	 WHERE AggregateId = @AggregateId
+	DECLARE @Exists		INT
 	
-	IF @Snapshot IS NULL
+	IF NOT EXISTS (	SELECT 1
+					  FROM Snapshots
+					 WHERE AggregateId = @AggregateId )
 	BEGIN
 		INSERT INTO Snapshots (AggregateId, [Version], [Snapshot])
 		SELECT @AggregateId,
@@ -24,7 +22,7 @@ BEGIN TRY
 		UPDATE Snapshots
 		   SET [Snapshot]		= @Snapshot,
 			   [Version]		= @Version
-		 WHERE Id		= @SnashotId	
+		 WHERE AggregateId	= @AggregateId	
 	END
 	COMMIT
 END TRY

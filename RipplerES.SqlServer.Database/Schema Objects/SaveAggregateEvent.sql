@@ -1,11 +1,11 @@
 ﻿CREATE PROCEDURE SaveAggregateEvent 
 						@AggregateId		UNIQUEIDENTIFIER,
-						@expectedVersion	INT,
+						@ExpectedVersion	INT,
 						@AggregateType		VARCHAR(MAX),
 						@EventType			VARCHAR(255),
-						@data				VARCHAR(MAX),
-						@metadata			VARCHAR(MAX),
-						@snapshot			VARCHAR(MAX)
+						@Data				VARCHAR(MAX),
+						@Metadata			VARCHAR(MAX),
+						@Snapshot			VARCHAR(MAX)	= NULL
 AS 
 BEGIN TRY 
 	BEGIN TRAN
@@ -22,13 +22,13 @@ BEGIN TRY
 		  FROM Events
 		 WHERE AggregateId = @AggregateId
 
-		 IF @currentVersion is null AND @expectedVersion = -1
+		 IF @currentVersion is null AND @ExpectedVersion = -1
 		 BEGIN
 			SET @currentVersion		= 0
-			SET @expectedVersion	= 0
+			SET @ExpectedVersion	= 0
 		 END
 
-		IF @currentVersion != @expectedVersion
+		IF @currentVersion != @ExpectedVersion
 		BEGIN
 			;THROW	50000, 'version number did not match expected version number', 1
 		END
@@ -45,13 +45,13 @@ BEGIN TRY
 							  @AggregateId,
 							  @AggregateTypeId,
 							  @EventTypeId,
-							  @data,
-							  @metadata
+							  @Data,
+							  @Metadata
 					)
 
 		IF @Snapshot IS NOT NULL
 		BEGIN
-			EXEC CreateOrUpdateSnapshot @AggregateId, @Snapshot 
+			EXEC CreateOrUpdateSnapshot @AggregateId, @newVersion, @Snapshot 
 		END
 
 		SELECT @newVersion
