@@ -8,6 +8,9 @@
 *.user
 *.userosscache
 *.sln.docstates
+restore.dg
+.suo
+*.lock.json
 
 # User-specific files (MonoDevelop/Xamarin Studio)
 *.userprefs
