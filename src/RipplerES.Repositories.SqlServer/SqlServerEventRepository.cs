@@ -42,17 +42,28 @@ namespace RipplerES.Repositories.SqlServer
                             .AddJsonFile("config.json").Build();
         }
 
-        public IEnumerable<AggregateEventData> GetEvents(Guid id)
+        public AggregateData GetEvents(Guid id, bool useSnapshot)
         {
             using(var connection = new SqlConnection(_connectionString))
             {
-                return connection.Query<AggregateEventData>(GetEventsByAggregateIdProcedure, 
-                                                            new { AggregateId = id }, 
-                                                            commandType: CommandType.StoredProcedure);
+                var result = connection.QueryMultiple(GetEventsByAggregateIdProcedure, 
+                                         new {
+                                             AggregateId = id,
+                                             useSnapshot
+                                         }, 
+                                         commandType: CommandType.StoredProcedure);
+
+
+                return new AggregateData
+                {
+                    Events = result.Read<AggregateEventData>(),
+                    SnapshotInfo = result.Read<SnapshotInfo>().SingleOrDefault()
+                };
+
             }
         }
 
-        public int Save(Guid id, int expectedVersion, AggregateEventData aggregateEvent)
+        public int Save(Guid id, int expectedVersion, AggregateEventData aggregateEvent, string snapshot)
         {
             using (var connection = new SqlConnection(_connectionString))
             {
@@ -62,7 +73,8 @@ namespace RipplerES.Repositories.SqlServer
                                                     aggregateEvent.AggregateType,
                                                     aggregateEvent.EventType,
                                                     aggregateEvent.Data,
-                                                    aggregateEvent.MetaData
+                                                    aggregateEvent.MetaData,
+                                                    snapshot
                                              },
                                              commandType: CommandType.StoredProcedure)
                                              .FirstOrDefault();

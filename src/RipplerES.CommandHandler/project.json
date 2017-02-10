@@ -1,5 +1,5 @@
 {
-  "version": "1.6.0-*",
+  "version": "1.7.7-*",
 
   "scripts": {
     "postcompile": [
@@ -8,6 +8,9 @@
   },
 
   "dependencies": {
+    "Microsoft.Extensions.Configuration": "1.1.0",
+    "Microsoft.Extensions.Configuration.FileExtensions": "1.1.0",
+    "Microsoft.Extensions.Configuration.Json": "1.1.0",
     "Microsoft.Extensions.DependencyInjection": "1.1.0",
     "NETStandard.Library": "1.6.1"
   },

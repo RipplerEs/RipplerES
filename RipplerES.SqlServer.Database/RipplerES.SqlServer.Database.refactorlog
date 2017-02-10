@@ -14,4 +14,18 @@
     <Property Name="ParentElementType" Value="SqlTable" />
     <Property Name="NewName" Value="EventTypeId" />
   </Operation>
+  <Operation Name="Rename Refactor" Key="cd91a897-140e-4758-9376-0a291b0f7191" ChangeDateTime="02/08/2017 11:05:05">
+    <Property Name="ElementName" Value="[dbo].[Events].[data]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[Events]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="Version" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="d28b4415-9633-43db-a6c4-a25d860624a2" ChangeDateTime="02/08/2017 11:05:13">
+    <Property Name="ElementName" Value="[dbo].[Events].[metadata]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[Events]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="Snapshot" />
+  </Operation>
 </Operations>

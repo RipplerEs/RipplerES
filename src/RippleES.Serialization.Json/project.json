@@ -1,5 +1,5 @@
 {
-  "version": "1.2.0-*",
+  "version": "1.2.3-*",
 
   "scripts": {
     "postcompile": [
@@ -10,7 +10,7 @@
   "dependencies": {
     "NETStandard.Library": "1.6.1",
     "Newtonsoft.Json": "9.0.1",
-    "RipplerES.CommandHandler": "1.6.0-*"
+    "RipplerES.CommandHandler": "1.7.0-*"
   },
   "frameworks": {
     "netcoreapp1.0": {

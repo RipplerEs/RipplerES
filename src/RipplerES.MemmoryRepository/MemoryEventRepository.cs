@@ -19,12 +19,17 @@ namespace RipplerES.MemoryRepository
             _events     = new Dictionary<Guid, List<AggregateEventData>>();
             _locks      = new Dictionary<Guid, object>();
         }
-        public IEnumerable<AggregateEventData> GetEvents(Guid id)
+        public AggregateData GetEvents(Guid id, bool useSnapshot)
         {
-            return _events.ContainsKey(id) ? _events[id] : new List<AggregateEventData>();
+            return new AggregateData
+            {
+                Events = _events.ContainsKey(id)
+                    ? _events[id]
+                    : new List<AggregateEventData>()
+            };
         }
 
-        public int Save(Guid id, int expectedVersion, AggregateEventData aggregateEvent)
+        public int Save(Guid id, int expectedVersion, AggregateEventData aggregateEvent, string snapshot)
         {
             EnsureLock(id);
             if (EnsureVersion(id, expectedVersion) == 0)
