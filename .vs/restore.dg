@@ -1,2 +1,9 @@
+#:C:\Users\douce\Source\Repos\RipplerES\src\RipplerES.MemmoryRepository\RipplerES.MemoryEventRepository.xproj
+C:\Users\douce\Source\Repos\RipplerES\src\RipplerES.MemmoryRepository\RipplerES.MemoryEventRepository.xproj|C:\Users\douce\Source\Repos\RipplerES\src\RipplerES.CommandHandler\RipplerES.CommandHandler.xproj
+#:C:\Users\douce\Source\Repos\RipplerES\src\RipplerES.CommandHandler\RipplerES.CommandHandler.xproj
 #:C:\Users\douce\Source\Repos\RipplerES\src\RipplerES.Repositories.SqlServer\RipplerES.Repositories.SqlServer.xproj
 C:\Users\douce\Source\Repos\RipplerES\src\RipplerES.Repositories.SqlServer\RipplerES.Repositories.SqlServer.xproj|C:\Users\douce\Source\Repos\RipplerES\src\RipplerES.CommandHandler\RipplerES.CommandHandler.xproj
+#:C:\Users\douce\Source\Repos\RipplerES\src\RipplerES.CommandHandler.Tests\RipplerES.CommandHandler.Tests.xproj
+C:\Users\douce\Source\Repos\RipplerES\src\RipplerES.CommandHandler.Tests\RipplerES.CommandHandler.Tests.xproj|C:\Users\douce\Source\Repos\RipplerES\src\RipplerES.CommandHandler\RipplerES.CommandHandler.xproj
+#:C:\Users\douce\Source\Repos\RipplerES\src\RippleES.Serialization.Json\RippleES.Serialization.Json.xproj
+C:\Users\douce\Source\Repos\RipplerES\src\RippleES.Serialization.Json\RippleES.Serialization.Json.xproj|C:\Users\douce\Source\Repos\RipplerES\src\RipplerES.CommandHandler\RipplerES.CommandHandler.xproj
