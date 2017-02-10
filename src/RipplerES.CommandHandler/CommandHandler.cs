@@ -16,6 +16,7 @@ namespace RipplerES.CommandHandler
         private readonly IEventRepository _repository;
         private readonly ISerializer _serializer;
         private int _snapshotInterval = 1000;
+        private bool _useSnapshot = false;
 
         private readonly AggregateRoot<T> _aggregateRoot;
 
@@ -30,19 +31,31 @@ namespace RipplerES.CommandHandler
         
         private void Initialize()
         {
-            var configuration = ReadConfigurationFile();
-            _snapshotInterval = ExtractSnapshotInterval(configuration);
+            var configuration   = ReadConfigurationFile();
+            _snapshotInterval   = ExtractSnapshotInterval(configuration);
+            _useSnapshot        = ExtractUseSnapshot(configuration);
         }
 
         private int ExtractSnapshotInterval(IConfiguration configuration)
         {
-            var literal = configuration.GetSection("Aggregate")["SnapshotInterval"];
+            var literal = configuration.GetSection("Aggregates")["SnapshotInterval"];
             if (string.IsNullOrWhiteSpace(literal)) return _snapshotInterval;
 
             int value;
             return int.TryParse(literal, out value) 
                         ? value 
                         : _snapshotInterval;
+        }
+
+        private bool ExtractUseSnapshot(IConfiguration configuration)
+        {
+            var literal = configuration.GetSection("Aggregates")["UseSnapshot"];
+            if (string.IsNullOrWhiteSpace(literal)) return _useSnapshot;
+
+            bool value;
+            return bool.TryParse(literal, out value)
+                        ? value
+                        : _useSnapshot;
         }
 
         private static IConfigurationRoot ReadConfigurationFile()
@@ -54,7 +67,7 @@ namespace RipplerES.CommandHandler
         
         public ICommandResult<T> Handle(Guid id, int expectedVersion, IAggregateCommand<T> aggregateCommand, Dictionary<string,string> metaData = null)
         {
-            var aggregateData = _repository.GetEvents(id);
+            var aggregateData = _repository.GetEvents(id, _useSnapshot);
             var events = aggregateData.Events.Select(c => _serializer.Deserialize<T>(c)).ToList();
 
             IDisposable disposable = null;

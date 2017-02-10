@@ -19,7 +19,7 @@ namespace RipplerES.MemoryRepository
             _events     = new Dictionary<Guid, List<AggregateEventData>>();
             _locks      = new Dictionary<Guid, object>();
         }
-        public AggregateData GetEvents(Guid id)
+        public AggregateData GetEvents(Guid id, bool useSnapshot)
         {
             return new AggregateData
             {

@@ -42,12 +42,15 @@ namespace RipplerES.Repositories.SqlServer
                             .AddJsonFile("config.json").Build();
         }
 
-        public AggregateData GetEvents(Guid id)
+        public AggregateData GetEvents(Guid id, bool useSnapshot)
         {
             using(var connection = new SqlConnection(_connectionString))
             {
                 var result = connection.QueryMultiple(GetEventsByAggregateIdProcedure, 
-                                         new { AggregateId = id }, 
+                                         new {
+                                             AggregateId = id,
+                                             useSnapshot
+                                         }, 
                                          commandType: CommandType.StoredProcedure);
 
 

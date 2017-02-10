@@ -1,12 +1,12 @@
 ﻿CREATE PROCEDURE GetEventsByAggregateId 
 						@AggregateId		UNIQUEIDENTIFIER,
-						@IgnoreSnapshot		BIT = 1
+						@UseSnapshot		BIT = 0
 AS 
 BEGIN
 	DECLARE @Version		INT
 	DECLARE @Snapshot		VARCHAR(MAX)
 
-	IF @IgnoreSnapshot != 1
+	IF @UseSnapshot = 1
 	BEGIN
 		SELECT @Version		= [Version],
 			   @Snapshot	= [Snapshot]
@@ -30,13 +30,13 @@ BEGIN
 			 ON Evt.EventTypeId			= Etyp.Id
 
 	 WHERE AggregateId		= @AggregateId
-	   AND (@IgnoreSnapshot = 1 
+	   AND (@UseSnapshot = 0
 			OR @Version IS NULL
 			OR [version] >= @Version)
 
-	IF @IgnoreSnapshot = 1
+	IF @UseSnapshot = 1
 	BEGIN
-		SELECT @Snapshot, 
+		SELECT @Snapshot as [Snapshot], 
 			   @Version as SnapshotVersion
 	END
 END
