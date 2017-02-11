@@ -7,9 +7,9 @@
     "dotnet-test-mstest": "1.1.2-preview",
     "MSTest.TestFramework": "1.0.8-rc2",
     "NETStandard.Library": "1.6.1",
-    "RippleES.Serialization.Json": "1.2.3-*",
-    "RipplerES.CommandHandler": "1.7.8-*",
-    "RipplerES.Repositories.SqlServer": "1.2.5-*",
+    "RippleES.Serialization.Json": "1.8.0-*",
+    "RipplerES.CommandHandler": "1.8.0-*",
+    "RipplerES.Repositories.SqlServer": "1.8.0-*",
     "Shouldly": "2.8.2"
   },
 
