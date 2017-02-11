@@ -38,11 +38,18 @@ namespace RipplerES.Repositories.SqlServer
                                          }, 
                                          commandType: CommandType.StoredProcedure);
 
+                if (useSnapshot)
+                {
+                    return new AggregateData
+                    {
+                        Events = result.Read<AggregateEventData>(),
+                        SnapshotInfo = result.Read<SnapshotInfo>().SingleOrDefault()
+                    };
+                }
 
                 return new AggregateData
                 {
-                    Events = result.Read<AggregateEventData>(),
-                    SnapshotInfo = result.Read<SnapshotInfo>().SingleOrDefault()
+                    Events = result.Read<AggregateEventData>()
                 };
 
             }
