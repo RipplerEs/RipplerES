@@ -1,9 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Globalization;
-using System.IO;
 using System.Linq;
-
+using System.Collections.Generic;
 
 using Microsoft.Extensions.Configuration;
 
@@ -11,63 +8,35 @@ namespace RipplerES.CommandHandler
 {
     public class CommandHandler<T>
     {
-        public const int NewAggregateVersion = -1;
-
         private readonly IEventRepository _repository;
         private readonly ISerializer _serializer;
-        private readonly IConfigurationRoot _configurationRoot;
 
-        private int _snapshotInterval = 1000;
         private bool _useSnapshot = false;
+        private int _snapshotInterval = 1000;
 
         private readonly AggregateRoot<T> _aggregateRoot;
 
-        private string SnapshotInterval =>
-            _configurationRoot.GetSection("Aggregates")["SnapshotInterval"];
-
-        private string UseSnapshot =>
-            _configurationRoot.GetSection("Aggregates")["UseSnapshot"];
 
         public CommandHandler(IEventRepository repository, 
                               ISerializer serializer, 
                               IServiceProvider serviceProvider,
-                              IConfigurationRoot configurationRoot)
+                              IConfiguration configuration
+            )
         {
             _repository = repository;
             _serializer = serializer;
-            _configurationRoot = configurationRoot;
 
-            Initialize();
+            ConfigureSnapshotSettings(configuration);
 
             _aggregateRoot = new AggregateRoot<T>(serviceProvider);
         }
         
-        private void Initialize()
+        private void ConfigureSnapshotSettings(IConfiguration configuration)
         {
-            _snapshotInterval   = ExtractSnapshotInterval();
-            _useSnapshot        = ExtractUseSnapshot();
+            _snapshotInterval = configuration.GetInt("Aggregates", "SnapshotInterval", 1000);
+            _useSnapshot      = configuration.GetBool("Aggregates", "UseSnapshot", false);
         }
 
-        private int ExtractSnapshotInterval()
-        {
-            if (string.IsNullOrWhiteSpace(SnapshotInterval)) return _snapshotInterval;
-
-            int value;
-            return int.TryParse(SnapshotInterval, out value) 
-                        ? value 
-                        : _snapshotInterval;
-        }
-
-        private bool ExtractUseSnapshot()
-        {
-            if (string.IsNullOrWhiteSpace(UseSnapshot)) return _useSnapshot;
-
-            bool value;
-            return bool.TryParse(UseSnapshot, out value)
-                        ? value
-                        : _useSnapshot;
-        }
-        
         public ICommandResult<T> Handle(Guid id, 
                                         int expectedVersion, 
                                         IAggregateCommand<T> aggregateCommand, 
@@ -119,22 +88,5 @@ namespace RipplerES.CommandHandler
                 disposable?.Dispose();
             }
         }
-
-
-    }
-
-    public class UnexpectedAggregateEvent<T> : IAggregateError<T>
-    {
-        public IAggregateCommandResult<T> CommandResult { get; }
-
-        public UnexpectedAggregateEvent(IAggregateCommandResult<T> commandResult)
-        {
-            CommandResult = commandResult;
-        }
-    }
-
-    public class AggregateConcurrencyError<T> : IAggregateError<T>
-    {
-
     }
 }
