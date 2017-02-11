@@ -3,6 +3,7 @@ using System.Linq;
 using System.Collections.Generic;
 
 using Microsoft.Extensions.Configuration;
+using RipplerES.CommandHandler.Utilities;
 
 namespace RipplerES.CommandHandler
 {

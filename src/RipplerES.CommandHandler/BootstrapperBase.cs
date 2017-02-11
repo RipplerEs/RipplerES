@@ -8,13 +8,13 @@ namespace RipplerES.CommandHandler
     public abstract class BootstrapperBase
     {
         private readonly IServiceCollection _serviceCollection;
-        private readonly IConfigurationRoot _configuration;
+        private readonly IConfiguration _configuration;
 
-        protected BootstrapperBase(IServiceCollection serviceCollection = null, 
-                                   IConfigurationRoot configurationRoot = null)
+        protected BootstrapperBase(IServiceCollection serviceCollection = null,
+                                   IConfiguration configuration = null)
         {
             _serviceCollection  = serviceCollection     ?? new ServiceCollection();
-            _configuration      = configurationRoot     ?? CreateDefaultConfigurationRoot();
+            _configuration      = configuration         ?? CreateDefaultConfigurationRoot();
         }
 
         public IConfigurationRoot CreateDefaultConfigurationRoot()

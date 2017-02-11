@@ -10,8 +10,8 @@ namespace RipplerAccountTest
     public class Bootstrapper : BootstrapperBase
     {
         public Bootstrapper(IServiceCollection serviceCollection = null,
-                               IConfigurationRoot configurationRoot = null) 
-            : base(serviceCollection, configurationRoot)
+                               IConfiguration configuration = null) 
+            : base(serviceCollection, configuration)
         {
         }
 

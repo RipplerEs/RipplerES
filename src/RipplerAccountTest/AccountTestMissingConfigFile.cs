@@ -14,7 +14,7 @@ namespace RipplerAccountTest
                 .Build();
 
         public AccountTestDatabaseOnlyConfigFile() 
-            : base(new Bootstrapper(configurationRoot: Configuration))
+            : base(new Bootstrapper(configuration: Configuration))
         {
         }
     }

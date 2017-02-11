@@ -9,22 +9,22 @@ using RipplerES.CommandHandler;
 
 using Dapper;
 using System.Linq;
+using RipplerES.CommandHandler.Utilities;
 
 namespace RipplerES.Repositories.SqlServer
 {
     public class SqlServerEventRepository : IEventRepository
     {
-        private readonly IConfigurationRoot _configurationRoot;
-        private const string GetEventsByAggregateIdProcedure = "GetEventsByAggregateId";
-        private const string SaveEventProcedure = "SaveAggregateEvent";
+        private readonly IConfiguration _configuration;
+        private const string GetEventsByAggregateIdProcedure    = "GetEventsByAggregateId";
+        private const string SaveEventProcedure                 = "SaveAggregateEvent";
 
-        private string ConnectionString =>
-            _configurationRoot.GetSection("Database")["ConnectionString"];
+        private string ConnectionString 
+            => _configuration.GetString("Database", "ConnectionString", string.Empty);
 
-
-        public SqlServerEventRepository(IConfigurationRoot configurationRoot)
+        public SqlServerEventRepository(IConfiguration configuration)
         {
-            _configurationRoot = configurationRoot;
+            _configuration = configuration;
         }
 
         public AggregateData GetEvents(Guid id, bool useSnapshot)

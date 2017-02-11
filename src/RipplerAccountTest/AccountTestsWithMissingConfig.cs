@@ -20,7 +20,7 @@ namespace RipplerAccountTest
         private readonly Dispatcher _dispatcher;
         public AccountTestsWithMissingConfig()
         {
-            _dispatcher = new Dispatcher(new Bootstrapper(configurationRoot: Configuration)
+            _dispatcher = new Dispatcher(new Bootstrapper(configuration: Configuration)
                                             .CreateServiceProvider());
         }
 
