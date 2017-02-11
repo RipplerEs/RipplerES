@@ -15,57 +15,63 @@ namespace RipplerES.CommandHandler
 
         private readonly IEventRepository _repository;
         private readonly ISerializer _serializer;
+        private readonly IConfigurationRoot _configurationRoot;
+
         private int _snapshotInterval = 1000;
         private bool _useSnapshot = false;
 
         private readonly AggregateRoot<T> _aggregateRoot;
 
-        public CommandHandler(IEventRepository repository, ISerializer serializer, IServiceProvider serviceProvider)
+        private string SnapshotInterval =>
+            _configurationRoot.GetSection("Aggregates")["SnapshotInterval"];
+
+        private string UseSnapshot =>
+            _configurationRoot.GetSection("Aggregates")["UseSnapshot"];
+
+        public CommandHandler(IEventRepository repository, 
+                              ISerializer serializer, 
+                              IServiceProvider serviceProvider,
+                              IConfigurationRoot configurationRoot)
         {
-            Initialize();
             _repository = repository;
             _serializer = serializer;
+            _configurationRoot = configurationRoot;
+
+            Initialize();
 
             _aggregateRoot = new AggregateRoot<T>(serviceProvider);
         }
         
         private void Initialize()
         {
-            var configuration   = ReadConfigurationFile();
-            _snapshotInterval   = ExtractSnapshotInterval(configuration);
-            _useSnapshot        = ExtractUseSnapshot(configuration);
+            _snapshotInterval   = ExtractSnapshotInterval();
+            _useSnapshot        = ExtractUseSnapshot();
         }
 
-        private int ExtractSnapshotInterval(IConfiguration configuration)
+        private int ExtractSnapshotInterval()
         {
-            var literal = configuration.GetSection("Aggregates")["SnapshotInterval"];
-            if (string.IsNullOrWhiteSpace(literal)) return _snapshotInterval;
+            if (string.IsNullOrWhiteSpace(SnapshotInterval)) return _snapshotInterval;
 
             int value;
-            return int.TryParse(literal, out value) 
+            return int.TryParse(SnapshotInterval, out value) 
                         ? value 
                         : _snapshotInterval;
         }
 
-        private bool ExtractUseSnapshot(IConfiguration configuration)
+        private bool ExtractUseSnapshot()
         {
-            var literal = configuration.GetSection("Aggregates")["UseSnapshot"];
-            if (string.IsNullOrWhiteSpace(literal)) return _useSnapshot;
+            if (string.IsNullOrWhiteSpace(UseSnapshot)) return _useSnapshot;
 
             bool value;
-            return bool.TryParse(literal, out value)
+            return bool.TryParse(UseSnapshot, out value)
                         ? value
                         : _useSnapshot;
         }
-
-        private static IConfigurationRoot ReadConfigurationFile()
-        {
-            return new ConfigurationBuilder()
-                            .SetBasePath(Directory.GetCurrentDirectory())
-                            .AddJsonFile("config.json").Build();
-        }
         
-        public ICommandResult<T> Handle(Guid id, int expectedVersion, IAggregateCommand<T> aggregateCommand, Dictionary<string,string> metaData = null)
+        public ICommandResult<T> Handle(Guid id, 
+                                        int expectedVersion, 
+                                        IAggregateCommand<T> aggregateCommand, 
+                                        Dictionary<string,string> metaData = null)
         {
             var aggregateData = _repository.GetEvents(id, _useSnapshot);
             var events = aggregateData.Events.Select(c => _serializer.Deserialize<T>(c)).ToList();

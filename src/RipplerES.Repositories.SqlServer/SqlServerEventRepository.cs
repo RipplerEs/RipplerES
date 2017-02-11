@@ -14,37 +14,22 @@ namespace RipplerES.Repositories.SqlServer
 {
     public class SqlServerEventRepository : IEventRepository
     {
+        private readonly IConfigurationRoot _configurationRoot;
         private const string GetEventsByAggregateIdProcedure = "GetEventsByAggregateId";
         private const string SaveEventProcedure = "SaveAggregateEvent";
 
-        private string _connectionString;
+        private string ConnectionString =>
+            _configurationRoot.GetSection("Database")["ConnectionString"];
 
-        public SqlServerEventRepository()
-        {
-            Initialize();
-        }
 
-        private void Initialize()
+        public SqlServerEventRepository(IConfigurationRoot configurationRoot)
         {
-            var configuration = ReadConfigurationFile();
-            _connectionString = ExtractConnectionString(configuration);
-        }
-
-        private static string ExtractConnectionString(IConfiguration configuration)
-        {
-            return configuration.GetSection("Database")["ConnectionString"];
-        }
-
-        private static IConfigurationRoot ReadConfigurationFile()
-        {
-            return new ConfigurationBuilder()
-                            .SetBasePath(Directory.GetCurrentDirectory())
-                            .AddJsonFile("config.json").Build();
+            _configurationRoot = configurationRoot;
         }
 
         public AggregateData GetEvents(Guid id, bool useSnapshot)
         {
-            using(var connection = new SqlConnection(_connectionString))
+            using(var connection = new SqlConnection(ConnectionString))
             {
                 var result = connection.QueryMultiple(GetEventsByAggregateIdProcedure, 
                                          new {
@@ -65,7 +50,7 @@ namespace RipplerES.Repositories.SqlServer
 
         public int Save(Guid id, int expectedVersion, AggregateEventData aggregateEvent, string snapshot)
         {
-            using (var connection = new SqlConnection(_connectionString))
+            using (var connection = new SqlConnection(ConnectionString))
             {
                 return connection.Query<int>(SaveEventProcedure,
                                              new {  AggregateId = id,
