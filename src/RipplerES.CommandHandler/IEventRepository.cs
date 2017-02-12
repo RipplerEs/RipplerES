@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 
 namespace RipplerES.CommandHandler
 {
@@ -7,17 +6,5 @@ namespace RipplerES.CommandHandler
     {
         AggregateData GetEvents(Guid id, bool useSnapshot = false);
         int Save(Guid id, int expectedVersion, AggregateEventData aggregateEvent, string snapshot);
-    }
-
-    public class SnapshotInfo
-    {
-        public int SnapshotVersion { get; set; }
-        public string Snapshot { get; set; }
-    }
-
-    public class AggregateData
-    {
-        public SnapshotInfo SnapshotInfo { get; set; }
-        public IEnumerable<AggregateEventData> Events { get; set; } 
     }
 }

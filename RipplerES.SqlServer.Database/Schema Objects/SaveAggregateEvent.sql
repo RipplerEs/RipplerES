@@ -1,22 +1,23 @@
 ﻿CREATE PROCEDURE SaveAggregateEvent 
-						@AggregateId		UNIQUEIDENTIFIER,
-						@ExpectedVersion	INT,
-						@AggregateType		VARCHAR(MAX),
-						@EventType			VARCHAR(255),
-						@Data				VARCHAR(MAX),
-						@Metadata			VARCHAR(MAX),
-						@Snapshot			VARCHAR(MAX)	= NULL
+						@AggregateId				UNIQUEIDENTIFIER,
+						@ExpectedVersion			INT,
+						@AggregateType				VARCHAR(255),
+						@AggregateFriendlyName		VARCHAR(255)	= NULL,
+						@EventType					VARCHAR(255),
+						@EventFriendlyName			VARCHAR(255)	= NULL,
+						@Data						VARCHAR(MAX),
+						@Metadata					VARCHAR(MAX),
+						@Snapshot					VARCHAR(MAX)	= NULL
 AS 
 BEGIN TRY 
 	BEGIN TRAN
 		DECLARE @currentVersion		INT
 		DECLARE @newVersion			INT
-
 		DECLARE @AggregateTypeId	INT
-		EXEC  EnsureAggregateType @AggregateType, @AggregateTypeId OUTPUT
+		DECLARE @EventTypeId		INT
 
-		DECLARE @EventTypeId	INT
-		EXEC  EnsureEventType @EventType, @EventTypeId OUTPUT
+		EXEC  EnsureAggregateType	@AggregateType, @AggregateFriendlyName,	@AggregateTypeId	OUTPUT
+		EXEC  EnsureEventType		@EventType,		@EventFriendlyName,		@EventTypeId		OUTPUT
 
 		SELECT @currentVersion = max([version])
 		  FROM Events

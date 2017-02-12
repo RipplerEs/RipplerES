@@ -1,6 +1,7 @@
 ﻿CREATE PROCEDURE EnsureAggregateType 
-						@AggregateType		VARCHAR(MAX),
-						@AggregateTypeId	INT					OUTPUT
+						@AggregateType				VARCHAR(255),
+						@AggregateFriendlyName		VARCHAR(255),
+						@AggregateTypeId			INT					OUTPUT
 AS 
 BEGIN TRY 
 	BEGIN TRAN
@@ -11,10 +12,17 @@ BEGIN TRY
 		 IF @AggregateTypeId IS NULL
 		 BEGIN
 			INSERT INTO AggregateTypes
-			SELECT @AggregateType
+			SELECT @AggregateType, @AggregateFriendlyName
 
 			SET @AggregateTypeId =  SCOPE_IDENTITY()
 		 END
+		 ELSE
+		 BEGIN
+			UPDATE AggregateTypes
+			   SET AggregateType	= @AggregateType,
+				   FriendlyName		= @AggregateFriendlyName
+			 WHERE Id	= @AggregateTypeId
+		END
 	COMMIT
 END TRY
 BEGIN CATCH

@@ -7,6 +7,10 @@ namespace RipplerES.CommandHandler
 {
     public static class AggregateTypeExtensions
     {
+        public static string GetFriendlName(this Type type)
+        {
+            return type.GetTypeInfo().GetCustomAttribute<FriendlyName>()?.Name;
+        }
         public static ConstructorInfo GetConstructor(this Type type)
         {
             return type.GetTypeInfo().GetConstructors().Single(c => !c.GetParameters().Any());

@@ -8,6 +8,7 @@ using Result  = RipplerES.CommandHandler.IAggregateCommandResult<RipplerAccountT
 
 namespace RipplerAccountTest.AccountAggregate
 {
+    [FriendlyName(name: "Account")]
     public class Account: AggregateBase<Account>, ISnapshotable
     {
         public double _balance = 0;

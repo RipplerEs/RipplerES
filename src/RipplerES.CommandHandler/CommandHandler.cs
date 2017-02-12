@@ -12,39 +12,34 @@ namespace RipplerES.CommandHandler
         private readonly IEventRepository _repository;
         private readonly ISerializer _serializer;
 
-        private bool _useSnapshot = false;
-        private int _snapshotInterval = 1000;
+        private readonly bool _useSnapshot;
+        private readonly int _snapshotInterval;
 
         private readonly AggregateRoot<T> _aggregateRoot;
-
 
         public CommandHandler(IEventRepository repository, 
                               ISerializer serializer, 
                               IServiceProvider serviceProvider,
-                              IConfiguration configuration
-            )
+                              IConfiguration configuration)
         {
+            _snapshotInterval = configuration.GetInt("Aggregates", "SnapshotInterval", 1000);
+            _useSnapshot = configuration.GetBool("Aggregates", "UseSnapshot", false);
+
             _repository = repository;
             _serializer = serializer;
 
-            ConfigureSnapshotSettings(configuration);
-
             _aggregateRoot = new AggregateRoot<T>(serviceProvider);
         }
-        
-        private void ConfigureSnapshotSettings(IConfiguration configuration)
-        {
-            _snapshotInterval = configuration.GetInt("Aggregates", "SnapshotInterval", 1000);
-            _useSnapshot      = configuration.GetBool("Aggregates", "UseSnapshot", false);
-        }
+
 
         public ICommandResult<T> Handle(Guid id, 
                                         int expectedVersion, 
                                         IAggregateCommand<T> aggregateCommand, 
                                         Dictionary<string,string> metaData = null)
         {
-            var aggregateData = _repository.GetEvents(id, _useSnapshot);
-            var events = aggregateData.Events.Select(c => _serializer.Deserialize<T>(c)).ToList();
+            var aggregateData   = _repository.GetEvents(id, _useSnapshot);
+            var events          = aggregateData.Events.Select(  
+                                            c => _serializer.Deserialize<T>(c)).ToList();
 
             IDisposable disposable = null;
             try
@@ -81,7 +76,7 @@ namespace RipplerES.CommandHandler
                                                         _serializer.Serialize(success.Event, metaData),
                                                         snapshot);
                 return newVersionNumber > 0
-                            ? (ICommandResult<T>) new CommandSuccessResult<T>(newVersionNumber)
+                            ? new CommandSuccessResult<T>(newVersionNumber)
                             : (ICommandResult<T>) new CommandErrorResult<T>(new AggregateConcurrencyError<T>());
             }
             finally

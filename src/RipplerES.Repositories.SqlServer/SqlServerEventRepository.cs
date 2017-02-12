@@ -55,7 +55,10 @@ namespace RipplerES.Repositories.SqlServer
             }
         }
 
-        public int Save(Guid id, int expectedVersion, AggregateEventData aggregateEvent, string snapshot)
+        public int Save(Guid id, 
+                        int expectedVersion, 
+                        AggregateEventData aggregateEvent, 
+                        string snapshot)
         {
             using (var connection = new SqlConnection(ConnectionString))
             {
@@ -63,7 +66,9 @@ namespace RipplerES.Repositories.SqlServer
                                              new {  AggregateId = id,
                                                     expectedVersion,
                                                     aggregateEvent.AggregateType,
+                                                    aggregateEvent.AggregateFriendlyName,
                                                     aggregateEvent.EventType,
+                                                    aggregateEvent.EventFriendlyName,
                                                     aggregateEvent.Data,
                                                     aggregateEvent.MetaData,
                                                     snapshot

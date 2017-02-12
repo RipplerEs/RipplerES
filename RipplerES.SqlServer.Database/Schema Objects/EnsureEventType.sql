@@ -1,6 +1,7 @@
 ﻿CREATE PROCEDURE EnsureEventType 
-						@EventType		VARCHAR(MAX),
-						@EventTypeId	INT					OUTPUT
+						@EventType				VARCHAR(255),
+						@EventFriendlyName		VARCHAR(255),
+						@EventTypeId			INT					OUTPUT
 AS 
 BEGIN TRY 
 	BEGIN TRAN
@@ -11,10 +12,17 @@ BEGIN TRY
 		 IF @EventTypeId IS NULL
 		 BEGIN
 			INSERT INTO EventTypes
-			SELECT @EventType
+			SELECT @EventType, @EventFriendlyName
 
 			SET @EventTypeId =  SCOPE_IDENTITY()
 		 END
+		 ELSE
+		 BEGIN
+			UPDATE EventTypes
+			   SET EventType		= @EventType,
+				   FriendlyName		= @EventFriendlyName
+			 WHERE Id	= @EventTypeId
+		END
 	COMMIT
 END TRY
 BEGIN CATCH
