@@ -14,16 +14,17 @@ BEGIN
 		 WHERE AggregateId		= @AggregateId
 	END
 
-	SELECT evt.Id,
+	SELECT AggregateId,
 		   [version],
 
-		   AggregateId,
 		   AggregateType,
 		   EventType,
+		   
 		   [data],
 		   metadata
 
 	  FROM Events								AS Evt
+
 	 INNER JOIN AggregateTypes					AS Atyp
 			 ON Evt.AggregateTypeId		= Atyp.Id
 	 INNER JOIN EventTypes						AS Etyp
