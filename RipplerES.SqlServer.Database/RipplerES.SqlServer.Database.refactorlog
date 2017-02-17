@@ -28,4 +28,18 @@
     <Property Name="ParentElementType" Value="SqlTable" />
     <Property Name="NewName" Value="Snapshot" />
   </Operation>
+  <Operation Name="Rename Refactor" Key="d5bff898-644e-4b0d-b8ef-3a0240048348" ChangeDateTime="02/16/2017 10:51:27">
+    <Property Name="ElementName" Value="[dbo].[AggregateTypeSubscription].[Id]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[AggregateTypeSubscription]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="SubscriptionId" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="4e834700-2d8f-4a84-9215-f47d26fc769c" ChangeDateTime="02/16/2017 11:05:21">
+    <Property Name="ElementName" Value="[dbo].[AggregateStreamSubscription].[AggregateTypeId]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[AggregateStreamSubscription]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="AggregateId" />
+  </Operation>
 </Operations>
