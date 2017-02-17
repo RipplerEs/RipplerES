@@ -12,7 +12,7 @@
 
 	CONSTRAINT		FK_EventType_Id			FOREIGN KEY (EventTypeId) 
 											REFERENCES EventTypes (Id), 
-    PRIMARY KEY ([version], [AggregateId])
+    PRIMARY KEY (AggregateId, [version])
 );
 
 

@@ -1,0 +1,23 @@
+﻿{
+  "version": "1.8.1-*",
+
+  "scripts": {
+    "postcompile": [
+      "dotnet pack --no-build --configuration %compile:Configuration% --output c:/dev/LocalNuget"
+    ]
+  },
+
+  "dependencies": {
+    "NETStandard.Library": "1.6.1"
+  },
+
+  "frameworks": {
+    "netcoreapp1.0": {
+      "imports": "dnxcore50"
+    },
+    "netstandard2.0": {},
+    "net4.6": {},
+    "net4.6.1": {}
+  }
+}
+

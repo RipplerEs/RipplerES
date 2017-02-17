@@ -42,4 +42,11 @@
     <Property Name="ParentElementType" Value="SqlTable" />
     <Property Name="NewName" Value="AggregateId" />
   </Operation>
+  <Operation Name="Rename Refactor" Key="1b8a7b1d-c2af-4698-bb25-704f902e8349" ChangeDateTime="02/17/2017 00:53:41">
+    <Property Name="ElementName" Value="[dbo].[Subscriptions].[LastEventId]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[Subscriptions]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="LastVersion" />
+  </Operation>
 </Operations>
