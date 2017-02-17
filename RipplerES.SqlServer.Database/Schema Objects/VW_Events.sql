@@ -4,8 +4,10 @@ AS
 		   evt.[version],
 		   evt.AggregateTypeId,
 		   agg.FriendlyName				as AggregateName,
+		   agg.AggregateType,
 		   evt.EventTypeId,
 		   et.FriendlyName				as EventName,
+		   et.EventType,
 		   evt.[data],
 		   evt.metadata
 	  FROM dbo.Events evt
