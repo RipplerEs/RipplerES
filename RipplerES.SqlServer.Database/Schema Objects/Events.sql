@@ -1,5 +1,4 @@
 ﻿CREATE TABLE dbo.Events (
-    Id						INT					IDENTITY (1, 1) NOT NULL PRIMARY KEY,
     version					INT					NOT NULL,
     [AggregateTypeId]		INT					NOT NULL,
     [EventTypeId]			INT					NOT NULL,
@@ -12,7 +11,8 @@
 											REFERENCES AggregateTypes (Id),
 
 	CONSTRAINT		FK_EventType_Id			FOREIGN KEY (EventTypeId) 
-											REFERENCES EventTypes (Id)
+											REFERENCES EventTypes (Id), 
+    PRIMARY KEY ([version], [AggregateId])
 );
 
 
