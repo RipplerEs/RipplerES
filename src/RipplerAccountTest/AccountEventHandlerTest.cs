@@ -29,25 +29,6 @@ namespace RipplerAccountTest
                 .Build();
 
         [TestMethod]
-        public void Test()
-        {
-            
-            var viewRepository = new ViewDataContex();
-            var handler = new SubscriptionHandler(Guid.NewGuid(), "Account Summary View",
-                                                  new SqlServerSubscriptionRepository(Configuration), eventHandlers: new ITypedEventHandler[]
-                                                  {
-                                                        new HandleAccountNameSet(viewRepository), 
-                                                        new HandleDeposited(viewRepository),
-                                                        new HandleWitdrawn(viewRepository)
-                                                  }, unhandledEventHandler: new  UnhandledEventHandler(viewRepository));
-
-            handler.Initialize();
-
-            handler.Execute();
-            viewRepository.AccountSummaryViews.Count().ShouldBe(0);
-        }
-
-        [TestMethod]
         public void Test2()
         {
             var subscriptionId = Guid.Parse("CF5E138D-4ADC-478F-BCB9-33901DB548B7");
