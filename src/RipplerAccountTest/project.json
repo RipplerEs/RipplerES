@@ -7,10 +7,14 @@
     "dotnet-test-mstest": "1.1.2-preview",
     "MSTest.TestFramework": "1.0.8-rc2",
     "NETStandard.Library": "1.6.1",
-    "RippleES.Serialization.Json": "1.8.1-*",
-    "RipplerES.CommandHandler": "1.8.1-*",
-    "RipplerES.Repositories.SqlServer": "1.8.1-*",
-    "Shouldly": "2.8.2"
+    "Microsoft.EntityFrameworkCore": "1.1.0",
+    "Microsoft.EntityFrameworkCore.SqlServer": "1.1.0",
+    "RippleES.Serialization.Json": "1.8.2-*",
+    "RipplerES.CommandHandler": "1.8.2-*",
+    "RipplerES.Repositories.SqlServer": "1.8.2-*",
+    "RipplerES.SubscriptionHandler": "1.8.2-*",
+    "Shouldly": "2.8.2",
+    "Microsoft.EntityFrameworkCore.Tools": "1.1.0-msbuild3-final"
   },
 
   "frameworks": {

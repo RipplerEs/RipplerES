@@ -1,6 +1,7 @@
 ﻿CREATE TABLE dbo.Events (
-    version					INT					NOT NULL,
+	[Id]					BIGINT					NOT NULL IDENTITY,
     [AggregateTypeId]		INT					NOT NULL,
+	version					INT					NOT NULL,
     [EventTypeId]			INT					NOT NULL,
 	
 	AggregateId				UNIQUEIDENTIFIER	NOT NULL,

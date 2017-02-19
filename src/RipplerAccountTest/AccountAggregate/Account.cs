@@ -31,6 +31,11 @@ namespace RipplerAccountTest.AccountAggregate
             return Error(new InsufficientFunds());
         }
 
+        public Result Execute(SetAccountFriendlyName command)
+        {
+            return Success(new AccountFriendlyNameSet(name: command.Name));
+        }
+
         public void Apply(Withdrawn @event)
         {
             _balance -= @event.Amount;

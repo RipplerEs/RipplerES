@@ -1,6 +1,7 @@
 ﻿CREATE VIEW dbo.VW_Events
 AS 
-	SELECT evt.[version],
+	SELECT evt.AggregateId,
+		   evt.[version],
 		   evt.AggregateTypeId,
 		   agg.FriendlyName				as AggregateName,
 		   evt.EventTypeId,

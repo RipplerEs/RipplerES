@@ -75,6 +75,10 @@
     <Build Include="Schema Objects\Snapshots.sql" />
     <Build Include="Schema Objects\CreateOrUpdateSnapshot.sql" />
     <Build Include="Schema Objects\VW_Events.sql" />
+    <Build Include="Schema Objects\AccountSummaryView.sql" />
+    <Build Include="Schema Objects\Subscribe.sql" />
+    <Build Include="Schema Objects\Subscriptions.sql" />
+    <Build Include="Schema Objects\Fetch.sql" />
   </ItemGroup>
   <ItemGroup>
     <RefactorLog Include="RipplerES.SqlServer.Database.refactorlog" />
