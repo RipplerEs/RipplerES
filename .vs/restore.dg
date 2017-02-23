@@ -1,3 +1,6 @@
+#:C:\Users\douce\Source\Repos\RipplerES\src\RipplerES.Repositories.SqlServer\RipplerES.Repositories.SqlServer.xproj
+C:\Users\douce\Source\Repos\RipplerES\src\RipplerES.Repositories.SqlServer\RipplerES.Repositories.SqlServer.xproj|C:\Users\douce\Source\Repos\RipplerES\src\RipplerES.CommandHandler\RipplerES.CommandHandler.xproj
+C:\Users\douce\Source\Repos\RipplerES\src\RipplerES.Repositories.SqlServer\RipplerES.Repositories.SqlServer.xproj|C:\Users\douce\Source\Repos\RipplerES\src\RipplerES.SubscriptionHandler\RipplerES.SubscriptionHandler.xproj
 #:C:\Users\douce\Source\Repos\RipplerES\src\RipplerAccountTest\RipplerAccountTest.xproj
 C:\Users\douce\Source\Repos\RipplerES\src\RipplerAccountTest\RipplerAccountTest.xproj|C:\Users\douce\Source\Repos\RipplerES\src\RippleES.Serialization.Json\RippleES.Serialization.Json.xproj
 C:\Users\douce\Source\Repos\RipplerES\src\RipplerAccountTest\RipplerAccountTest.xproj|C:\Users\douce\Source\Repos\RipplerES\src\RipplerES.CommandHandler\RipplerES.CommandHandler.xproj
@@ -6,6 +9,5 @@ C:\Users\douce\Source\Repos\RipplerES\src\RipplerAccountTest\RipplerAccountTest.
 C:\Users\douce\Source\Repos\RipplerES\src\RippleES.Serialization.Json\RippleES.Serialization.Json.xproj|C:\Users\douce\Source\Repos\RipplerES\src\RipplerES.CommandHandler\RipplerES.CommandHandler.xproj
 C:\Users\douce\Source\Repos\RipplerES\src\RipplerES.Repositories.SqlServer\RipplerES.Repositories.SqlServer.xproj|C:\Users\douce\Source\Repos\RipplerES\src\RipplerES.CommandHandler\RipplerES.CommandHandler.xproj
 C:\Users\douce\Source\Repos\RipplerES\src\RipplerES.Repositories.SqlServer\RipplerES.Repositories.SqlServer.xproj|C:\Users\douce\Source\Repos\RipplerES\src\RipplerES.SubscriptionHandler\RipplerES.SubscriptionHandler.xproj
-#:C:\Users\douce\Source\Repos\RipplerES\src\RipplerES.Repositories.SqlServer\RipplerES.Repositories.SqlServer.xproj
-C:\Users\douce\Source\Repos\RipplerES\src\RipplerES.Repositories.SqlServer\RipplerES.Repositories.SqlServer.xproj|C:\Users\douce\Source\Repos\RipplerES\src\RipplerES.CommandHandler\RipplerES.CommandHandler.xproj
-C:\Users\douce\Source\Repos\RipplerES\src\RipplerES.Repositories.SqlServer\RipplerES.Repositories.SqlServer.xproj|C:\Users\douce\Source\Repos\RipplerES\src\RipplerES.SubscriptionHandler\RipplerES.SubscriptionHandler.xproj
+#:C:\Users\douce\Source\Repos\RipplerES\src\RipplerES.MemmoryRepository\RipplerES.MemoryEventRepository.xproj
+C:\Users\douce\Source\Repos\RipplerES\src\RipplerES.MemmoryRepository\RipplerES.MemoryEventRepository.xproj|C:\Users\douce\Source\Repos\RipplerES\src\RipplerES.CommandHandler\RipplerES.CommandHandler.xproj

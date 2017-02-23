@@ -1,5 +1,5 @@
 {
-  "version": "1.8.2-*",
+  "version": "1.8.3-*",
 
   "scripts": {
     "postcompile": [
@@ -9,7 +9,7 @@
 
   "dependencies": {
     "NETStandard.Library": "1.6.1",
-    "RipplerES.CommandHandler": "1.8.2-*"
+    "RipplerES.CommandHandler": "1.8.3-*"
   },
 
   "frameworks": {

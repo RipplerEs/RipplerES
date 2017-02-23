@@ -1938,7 +1938,7 @@
           "lib/netstandard1.3/System.Xml.XmlDocument.dll": {}
         }
       },
-      "RipplerES.CommandHandler/1.8.2": {
+      "RipplerES.CommandHandler/1.8.3": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v1.0",
         "dependencies": {
@@ -2781,7 +2781,7 @@
           "lib/net45/_._": {}
         }
       },
-      "RipplerES.CommandHandler/1.8.2": {
+      "RipplerES.CommandHandler/1.8.3": {
         "type": "project",
         "framework": ".NETFramework,Version=v4.6",
         "dependencies": {
@@ -3624,7 +3624,7 @@
           "lib/net45/_._": {}
         }
       },
-      "RipplerES.CommandHandler/1.8.2": {
+      "RipplerES.CommandHandler/1.8.3": {
         "type": "project",
         "framework": ".NETFramework,Version=v4.6.1",
         "dependencies": {
@@ -5594,7 +5594,7 @@
           "lib/netstandard1.3/System.Xml.XmlDocument.dll": {}
         }
       },
-      "RipplerES.CommandHandler/1.8.2": {
+      "RipplerES.CommandHandler/1.8.3": {
         "type": "project",
         "framework": ".NETStandard,Version=v2.0",
         "dependencies": {
@@ -9825,7 +9825,7 @@
         "ref/xamarinwatchos10/_._"
       ]
     },
-    "RipplerES.CommandHandler/1.8.2": {
+    "RipplerES.CommandHandler/1.8.3": {
       "type": "project",
       "path": "../RipplerES.CommandHandler/project.json",
       "msbuildProject": "../RipplerES.CommandHandler/RipplerES.CommandHandler.xproj"
@@ -9843,7 +9843,7 @@
       "Microsoft.Extensions.Configuration.FileExtensions >= 1.1.0",
       "Microsoft.Extensions.Configuration.Json >= 1.1.0",
       "NETStandard.Library >= 1.6.1",
-      "RipplerES.CommandHandler >= 1.8.2-*",
+      "RipplerES.CommandHandler >= 1.8.3-*",
       "RipplerES.SubscriptionHandler >= 1.8.2-*"
     ],
     ".NETCoreApp,Version=v1.0": [],
