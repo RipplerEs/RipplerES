@@ -4,7 +4,7 @@ using RipplerES.SubscriptionHandler;
 
 namespace RipplerAccountTest.AccountSummaryView
 {
-    public class HandleWitdrawn : AccountSummaryViewEventHandler, ITypedEventHandler
+    public class HandleWitdrawn : AccountSummaryViewEventHandler, IEventHandler
     {
         public HandleWitdrawn(ViewDataContex viewRepository) : base(viewRepository)
         {
@@ -17,9 +17,15 @@ namespace RipplerAccountTest.AccountSummaryView
             view.Balance -= (double)json.Amount;
         }
 
+        public bool CanHandle(string aggregateType, string eventType)
+        {
+            return aggregateType == typeof(Account).AssemblyQualifiedName &&
+                eventType == typeof(Withdrawn).AssemblyQualifiedName;
+        }
+
         public bool CanHandle(string eventType)
         {
-            return eventType == typeof(Withdrawn).AssemblyQualifiedName;
+            return false;
         }
     }
 }

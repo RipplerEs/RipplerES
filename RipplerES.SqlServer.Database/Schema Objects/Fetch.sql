@@ -8,14 +8,19 @@ BEGIN
 	(
 		EventId				BIGINT,
 		AggregateId			UNIQUEIDENTIFIER,
-		[Version]			INT,
+		[version]			INT,
+
 		EventTypeId			INT,
 		EventType			VARCHAR(255),
-		FriendlyName		VARCHAR(255),
+		EventName			VARCHAR(255),
+
+		AggregateTypeId		INT,
+		AggregateType		VARCHAR(255),
+		AggregateName		VARCHAR(255),
+
 		[Data]				VARCHAR(MAX),
 		[MetaData]			VARCHAR(MAX)
 	)
-
 	
 	SELECT @lastEventId			= LastEventId
 	  FROM dbo.Subscriptions
@@ -31,16 +36,25 @@ BEGIN
 		INSERT INTO @eventResult
 		SELECT evt.Id,
 			   AggregateId,
-			   [Version],
+			   [version],
+			   
 			   evt.EventTypeId,
 			   evtType.EventType,
 			   evtType.FriendlyName,
+
+			   evt.AggregateTypeId,
+			   aggType.AggregateType,
+			   aggType.FriendlyName,
+
 			   evt.data,
 			   evt.metadata
 
 		  FROM dbo.Events evt
-		 INNER JOIN dbo.EventTypes evtType
-				 ON evt.EventTypeId		= evtType.Id
+		 INNER JOIN dbo.EventTypes		AS evtType
+				 ON evt.EventTypeId			= evtType.Id
+
+		 INNER JOIN dbo.AggregateTypes	AS aggType
+				 ON evt.AggregateTypeId		= aggType.Id
 
 		 WHERE evt.Id > @lastEventId
 
@@ -52,16 +66,24 @@ BEGIN
 		SELECT TOP (@maxNumberOfEvents)
 			   evt.Id,
 			   AggregateId,
-			   [Version],
+			   [version],
 			   evt.EventTypeId,
 			   evtType.EventType,
-			   evtType.FriendlyName,
+			   evtType.FriendlyName		EventName,
+
+			   evt.AggregateTypeId,
+			   aggType.AggregateType,
+			   aggType.FriendlyName		AggregateName,
+
 			   evt.data,
 			   evt.metadata
 
 		  FROM dbo.Events evt
 		 INNER JOIN dbo.EventTypes evtType
-				 ON evt.EventTypeId		= evtType.Id
+				 ON evt.EventTypeId			= evtType.Id
+
+		 INNER JOIN dbo.AggregateTypes aggType
+				 ON aggType.Id		= evt.AggregateTypeId
 
 		 WHERE evt.Id > @lastEventId
 
@@ -70,13 +92,19 @@ BEGIN
 
 	UPDATE dbo.Subscriptions
 	   SET lastEventId = (SELECT MAX(EventId) FROM @eventResult)
-	 WHERE channelId	= @channelId
+	 WHERE channelId		= @channelId
 
 	 SELECT AggregateId,
 			[Version],
+
 			EventTypeId,
 			EventType,
-			FriendlyName,
+			EventName,
+
+			AggregateTypeId,
+			AggregateType,
+			AggregateName,
+			
 			data,
 			metadata
 	   FROM @eventResult

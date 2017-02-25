@@ -4,7 +4,7 @@ using RipplerES.SubscriptionHandler;
 
 namespace RipplerAccountTest.AccountSummaryView
 {
-    public class HandleAccountNameSet : AccountSummaryViewEventHandler, ITypedEventHandler
+    public class HandleAccountNameSet : AccountSummaryViewEventHandler, IEventHandler
     {
         public HandleAccountNameSet(ViewDataContex viewRepository) : base(viewRepository)
         {
@@ -16,9 +16,16 @@ namespace RipplerAccountTest.AccountSummaryView
             view.Version = version;
             view.FriendlyName = json.Name;
         }
-        public bool CanHandle(string eventType)
+
+        public bool CanHandle(string aggregateType, string eventType)
         {
-            return eventType == typeof(AccountFriendlyNameSet).AssemblyQualifiedName;
+            return aggregateType == typeof(Account).AssemblyQualifiedName &&
+                eventType == typeof(AccountFriendlyNameSet).AssemblyQualifiedName;
+        }
+
+        public bool CanHandle(string aggregateType)
+        {
+            return false;
         }
     }
 }

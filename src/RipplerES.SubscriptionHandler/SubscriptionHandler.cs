@@ -1,26 +1,25 @@
 using System;
+using System.Linq;
 
 namespace RipplerES.SubscriptionHandler
 {
     public class SubscriptionHandler
     {
         private readonly Guid _subscriptionId;
-        private readonly string _name;
+
         private readonly ISubscriptionRepository _subscriptionRepository;
-        private readonly ITypedEventHandler[] _eventHandlers;
-        private readonly IEventHandler _unhandledEventHandler;
+        private readonly IEventHandler[] _eventHandlers;
+        private readonly string _name;
 
         public SubscriptionHandler(
             Guid subscriptionId,
             string name,
             ISubscriptionRepository subscriptionRepository,
-            ITypedEventHandler[] eventHandlers,
-            IEventHandler unhandledEventHandler)
+            IEventHandler[] eventHandlers)
         {
             _subscriptionId = subscriptionId;
             _name = name;
             _subscriptionRepository = subscriptionRepository;
-            _unhandledEventHandler = unhandledEventHandler;
             _eventHandlers = eventHandlers;
         }
 
@@ -33,7 +32,7 @@ namespace RipplerES.SubscriptionHandler
         {
             foreach (var @event in _subscriptionRepository.Fetch(_subscriptionId))
             {
-                foreach (var handler in _eventHandlers.CanHandle(_unhandledEventHandler, @event))
+                foreach (var handler in _eventHandlers.CanHandleEvent(@event))
                 {
                     handler.Handle(@event.AggregateId, @event.Version, @event.Data, @event.MetaData);
                 }

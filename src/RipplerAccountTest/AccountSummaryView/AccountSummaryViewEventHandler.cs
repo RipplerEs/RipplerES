@@ -4,7 +4,7 @@ using RipplerES.SubscriptionHandler;
 
 namespace RipplerAccountTest.AccountSummaryView
 {
-    public abstract class AccountSummaryViewEventHandler : IEventHandler
+    public abstract class AccountSummaryViewEventHandler
     {
         private readonly ViewDataContex _viewRepository;
         protected AccountSummaryViewEventHandler(ViewDataContex viewRepository)

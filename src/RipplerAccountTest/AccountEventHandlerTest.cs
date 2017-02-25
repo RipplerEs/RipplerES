@@ -39,12 +39,13 @@ namespace RipplerAccountTest
             var initialCount = viewRepository.AccountSummaryViews.Count();
 
             var handler = new SubscriptionHandler(subscriptionId, "Account Summary View",
-                                                  new SqlServerSubscriptionRepository(Configuration), eventHandlers: new ITypedEventHandler[]
+                                                  new SqlServerSubscriptionRepository(Configuration), eventHandlers: new IEventHandler[]
                                                   {
                                                         new HandleAccountNameSet(viewRepository),
                                                         new HandleDeposited(viewRepository),
-                                                        new HandleWitdrawn(viewRepository)
-                                                  }, unhandledEventHandler: new UnhandledEventHandler(viewRepository));
+                                                        new HandleWitdrawn(viewRepository),
+                                                        new UnhandledEventHandler(viewRepository)
+                                                  });
             handler.Initialize();
 
             _dispatcher.Execute(aggregateId, -1, new SetAccountFriendlyName(name: "My Checking Account"));
