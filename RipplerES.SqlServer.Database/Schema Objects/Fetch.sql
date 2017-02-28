@@ -90,9 +90,13 @@ BEGIN
 		 ORDER BY evt.Id asc
 	END
 
-	UPDATE dbo.Subscriptions
-	   SET lastEventId = (SELECT MAX(EventId) FROM @eventResult)
-	 WHERE channelId		= @channelId
+	SET @lastEventId = (SELECT MAX(EventId) FROM @eventResult)
+	IF  @lastEventId IS NOT NULL
+	BEGIN
+		UPDATE dbo.Subscriptions
+		   SET lastEventId = (SELECT MAX(EventId) FROM @eventResult)
+		 WHERE channelId		= @channelId
+	 END
 
 	 SELECT AggregateId,
 			[Version],
